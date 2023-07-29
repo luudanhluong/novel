@@ -38,6 +38,49 @@
 
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    --><script language="javascript">
+    (function ($) {
+      function equalizeHeights(selector) {
+        var heights = new Array();
+        // Loop to get all element heights
+        $(selector).each(function () {
+
+          // Need to let sizes be whatever they want so no overflow on resize
+          $(this).css('min-height', '0');
+          $(this).css('max-height', 'none');
+          $(this).css('height', 'auto');
+
+          // Then add size (no units) to array
+          heights.push($(this).height());
+        }); 
+        // Find max height of all elements
+        var max = Math.max.apply(Math, heights);
+
+        // Set all heights to max height
+        $(selector).each(function () {
+          $(this).css('height', max + 20 + 'px');
+        });
+      }
+
+      $(window).load(function () {
+        // Fix heights on page load
+        equalizeHeights('.card-body');
+
+        // Fix heights on window resize
+        var iv = null;
+        $(window).resize(function () {
+
+          if (iv !== null) {
+            window.clearTimeout(iv);
+          }
+
+          // Needs to be a timeout function so it doesn't fire every ms of resize
+          iv = setTimeout(function () {
+            equalizeHeights('.card-body');
+          }, 120);
+        });
+      });
+    })(jQuery);
+  </script>
   </body>
 </html>

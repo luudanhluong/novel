@@ -1,38 +1,115 @@
-.App {
-  text-align: center;
+.card_slider {
+  border: 0 !important;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.link {
+  color: #000;
+  text-decoration: none;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.active-link {
+  font-weight: bold;
+  color: #000;
+  text-decoration: none;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.img_card_slide {
+  width: 185px;
+  height: 225px;
+}
+.body_card_slider {
+  padding: 0 8px !important;
+}
+.body_card_item {
+  padding: 10px 0px !important;
+}
+.img_card_item {
+  width: 185px;
+  height: 225px;
+}
+.name_card_item {
+  padding: 10px 2px;
+  font-weight: bold !important;
+  font-size: 18px !important;
+}
+.story_detail_item {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 30px;
+  padding-left: 10px;  
+  padding-bottom: 8px;
+  color: rgb(103, 103, 103);
+}
+.item_primary {
+  width: 100px;
+  font-weight: bold;
+  color: #000;
+}
+.content_header {
+  list-style: none;
+}
+.content_header_detail {
+  color: #0dcaf0;
+  line-height: 30px;
+  font-size: 24px; 
+}
+.img_detail {
+  width: 200px; 
+  height: 290px;
+}
+.top_container_img {
+  width: 80px !important;
+  height: 60px;
+  overflow: hidden;
+}
+.top_img_item {
+  width: 80px !important;
+  height: 80px;
+}
+.top_name_item, .top_view_item, .top_chapter_item{
+  font-size: 13px;
+  white-space: nowrap;  
+  overflow: hidden; 
+  text-overflow: ellipsis;
+}
+.top_container_img, .top_name_item {
+  cursor: pointer;
+}
+.top_container_detail {
+  list-style: none;  
+}
+.top_number_1 {
+  color: #0dcaf0;
+}
+.top_number_2 {
+  color: green;
+}
+.top_number_3 {
+  color: red;
+}
+.top_number {
+  font-size: 20px; 
+}
+.container_top_number {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+} 
+.content_header_item {
+  font-size: 18px;
+  font-weight: 700;
+  color: rgb(87, 86, 86);
+} 
+.Content_header_List_item {
+  border-bottom: 1px dashed #afb3b7; 
 }
-
-.App-link {
-  color: #61dafb;
+.last_item {
+  border-bottom: none
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.time_update {
+  color: #828486;
+  font-size: 14px;
+}
+.name_chapter {
+  text-decoration: none; 
+}
+.name_chapter:hover {
+  color: rgb(4, 60, 203) !important;
+  font-weight: 700;
 }
