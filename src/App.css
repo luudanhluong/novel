@@ -10,19 +10,18 @@
   color: #000;
   text-decoration: none;
 }
-.img_card_slide {
-  width: 185px;
+.img_card_slide { 
   height: 225px;
 }
 .body_card_slider {
   padding: 0 8px !important;
+  height: 210px;
 }
 .body_card_item {
   padding: 10px 0px !important;
 }
-.img_card_item {
-  width: 185px;
-  height: 225px;
+.img_card_item { 
+  height: 200px;
 }
 .name_card_item {
   padding: 10px 2px;
@@ -51,7 +50,7 @@
   font-size: 24px; 
 }
 .img_detail {
-  width: 200px; 
+  width: 210px; 
   height: 290px;
 }
 .top_container_img {

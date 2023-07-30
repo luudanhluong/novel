@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { ExclamationCircleFill, EyeFill, FileText, PersonFill, TagsFill } from 'react-bootstrap-icons'
+import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 import FormRate from "./FormRate";
 import ListChapter from "./ListChapter";
 const StoryDetail = ({ sid }) => {
+    const navigate = useNavigate('')
     const [story, setStory] = useState({})
     const [categories, setCategories] = useState([])
     const [rateStories, setRateStories] = useState([])
+    const [chapteres, setChapteres] = useState([])
     const [rateNo, setRateNo] = useState(0)
+    const header = { "content-type": "application/json", }
     let storyCategory = "";
     if (typeof story.categoryId !== 'undefined') {
         categories.map(category => {
@@ -24,7 +29,8 @@ const StoryDetail = ({ sid }) => {
     let results
     if (rateStories.length >= 1) {
         let totalRate = rateStories.reduce((accumulator, rateStory) => {
-            return accumulator += parseInt(rateStory.rateNo);
+            accumulator += parseInt(rateStory.rateNo);
+            return accumulator;
         }, 0)
         let avgRate = totalRate / rateStories.length
         if (avgRate % 1 >= 0.5) {
@@ -38,6 +44,11 @@ const StoryDetail = ({ sid }) => {
     const getRateNo = (value) => {
         setRateNo(value)
     }
+    useEffect(() => {
+        fetch("http://localhost:9999/chapter?rateStoryId=" + sid)
+            .then(res => res.json())
+            .then(data => setChapteres(data))
+    }, [sid])
     useEffect(() => {
         fetch("http://localhost:9999/rateStory?rateStoryId=" + sid)
             .then(res => res.json())
@@ -53,6 +64,26 @@ const StoryDetail = ({ sid }) => {
             .then(res => res.json())
             .then(data => setCategories(data))
     }, [])
+    const handleOnclickRead = (e) => {
+        if (chapteres.length === 0) {
+            toast.warning("Truyện hiện đang cập nhật xin chờ thêm.")
+        } else {
+            const newViewStory = {
+                ...story,
+                view: story.view += 1
+            }
+            fetch("http://localhost:9999/Stories/" + sid, {
+                method: "PUT",
+                body: JSON.stringify(newViewStory),
+                headers: header
+            })
+            if (e.target.innerText === "Đọc từ đầu") {
+                navigate(`/detail/${sid}/chapter/${1}`)
+            } else if (e.target.innerText === "Đọc mới nhất") {
+                navigate(`/detail/${sid}/chapter/${chapteres.length}`)
+            }
+        }
+    }
     return (
         <Row>
             <Col xs={12} className="text-center">
@@ -84,7 +115,11 @@ const StoryDetail = ({ sid }) => {
                             <li className="d-flex ">
                                 <p className="m-0"><EyeFill size={24} /></p>
                                 <p class="story_detail_item m-0 item_primary">Lượt xem:</p>
-                                <p class="story_detail_item m-0">1.200.222 </p>
+                                <p class="story_detail_item m-0">
+                                    {
+                                        story.view
+                                    }
+                                </p>
                             </li>
                             <li className="d-flex ">
                                 <p className="story_detail_item m-0 text-primary">{story.name}<small class="story_detail_item m-0">Xếp hạng: {typeof results === "undefined" ? 0 : results}/5-{rateStories.length} Lượt đánh giá.</small></p>
@@ -97,7 +132,7 @@ const StoryDetail = ({ sid }) => {
                                 <p class="story_detail_item m-0">Người Đã Theo Dõi</p>
                             </li>
                             <li className="d-flex ">
-                                <p><Button className="bg-warning border-0">Đọc từ đầu</Button> <Button className="bg-warning border-0">Đọc mới nhất</Button></p>
+                                <p><Button onClick={(e) => handleOnclickRead(e)} className="bg-warning border-0">Đọc từ đầu</Button> <Button onClick={(e) => handleOnclickRead(e, story)} className="bg-warning border-0">Đọc mới nhất</Button></p>
                             </li>
                         </ul>
                     </Col>

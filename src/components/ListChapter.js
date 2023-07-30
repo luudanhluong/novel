@@ -51,7 +51,7 @@ const ListChapter = ({ sid }) => {
                             <ul className="content_header border mb-5 p-0">
                                 {
                                     chapteres.map((chapter, index) => (
-                                        <li className={`Content_header_List_item pt-2 pb-2 mx-4 px-2 ${index === chapteres.length - 1 ? "last_item" : ""}`}>
+                                        <li key={chapter.id} className={`Content_header_List_item pt-2 pb-2 mx-4 px-2 ${index === chapteres.length - 1 ? "last_item" : ""}`}>
                                             <Row>
                                                 <Col xs={8}>
                                                     <p className="m-0">

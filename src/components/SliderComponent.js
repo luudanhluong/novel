@@ -2,7 +2,7 @@ import { Card, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Slider from "react-slick";
 
-const SliderComponent = ({ data }) => { 
+const SliderComponent = ({ data }) => {
     const settings = {
         speed: 500,
         autoplaySpeed: 2500,
@@ -40,7 +40,7 @@ const SliderComponent = ({ data }) => {
                 },
             },
         ],
-    }; 
+    };
     return (
         <Row className='pt-3 pb-2 d-flex justify-content-center'>
             <Col xs={10} className="border-2 border-bottom border-info pb-4">

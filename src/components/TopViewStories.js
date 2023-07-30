@@ -6,13 +6,27 @@ import { useNavigate } from "react-router-dom";
 const TopViewStories = () => {
     const navigate = useNavigate('')
     const [stories, setStories] = useState([])
+    const [chapteres, setChapteres] = useState([])
+    useEffect(() => {
+        fetch("http://localhost:9999/chapter")
+            .then(res => res.json())
+            .then(data => setChapteres(data))
+    }, [])
     useEffect(() => {
         fetch("http://localhost:9999/Stories")
             .then(res => res.json())
-            .then(data => setStories(data.filter((d, i) => i <= 5 ? d : "")))
+            .then(data => setStories(data.sort((a, b) => b["view"] - a["view"])))
     }, [])
     const handleOnclickTop = (e, id) => {
-        navigate(`/detail/${id}`); 
+        navigate(`/detail/${id}`);
+    }
+    const countChapter = (id) => {
+        return chapteres.reduce((acc, chapter) => {
+            if (chapter.storyId === id) {
+                acc++
+            }
+            return acc
+        }, 0)
     }
     return (
         <Row className={"border"}>
@@ -24,23 +38,25 @@ const TopViewStories = () => {
                     stories.map((story, index) => (
                         <Row key={story.id} className={"pb-3"}>
                             <Col xs={1} className={"container_top_number"}>
-                                <p className={`m-0 top_number top_number_${index+1}`}>0{index+1}</p>
+                                <p className={`m-0 top_number top_number_${index + 1}`}>0{index + 1}</p>
                             </Col>
                             <Col xs={11}>
                                 <Row>
-                                    <Col xs={4} className="top_container_img" onClick={(e)=> handleOnclickTop(e, story.id)}>
+                                    <Col xs={4} className="top_container_img" onClick={(e) => handleOnclickTop(e, story.id)}>
                                         <img className="top_img_item" src={story.image} alt={story.name}></img>
                                     </Col>
                                     <Col xs={8}>
                                         <ul className="top_container_detail p-0 m-0">
-                                            <li onClick={(e)=> handleOnclickTop(e, story.id)} className="top_name_item pb-2 pt-1">{story.name}</li>
+                                            <li onClick={(e) => handleOnclickTop(e, story.id)} className="top_name_item pb-2 pt-1">{story.name}</li>
                                             <li>
                                                 <Row>
                                                     <Col xs={7}>
-                                                        <p className="m-0 top_chapter_item">Chương 1088</p>
+                                                        <p className="m-0 top_chapter_item">Chương {
+                                                            countChapter(story.id)
+                                                        }</p>
                                                     </Col>
                                                     <Col xs={5}>
-                                                        <p className="m-0 top_view_item d-flex"><p className="m-0"><EyeFill/></p><p className="m-0">10.000M</p></p>
+                                                        <p className="m-0 top_view_item d-flex"><p className="m-0 me-1"><EyeFill /></p><p className="m-0">{story.view}</p></p>
                                                     </Col>
                                                 </Row>
                                             </li>
