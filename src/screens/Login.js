@@ -4,7 +4,7 @@ import { ArrowLeft } from 'react-bootstrap-icons'
 import { toast } from 'react-toastify';
 import { SHA256 } from 'crypto-js';
 import { Link, useNavigate } from 'react-router-dom'
-import FormGroup from '../components/common/FormGroup'
+import FormGroup from '../components/FormGroup'
 import '../styles/register.css'
 
 const initFormValue = {
@@ -118,18 +118,18 @@ function Login() {
         getParentElement(e.target).classList.remove('invalid')
     } 
     useEffect(() => {
-        fetch('http://localhost:9999/customers')
-            .then(res => res.json())
-            .then(customers => setAcountExist(customers.some((c) => {
-                if (c.phoneNumber === inputPhoneNumber.current.value && c.password === inputPassword.current.value) {
-                    setCustomer(c)
-                    return true
-                } else if (c.phoneNumber === inputPhoneNumber.current.value && c.password === SHA256(password).toString()){
-                    setCustomer(c)
-                    return true
-                }
-                    return false
-            })))
+        // fetch('http://localhost:9999/customers')
+        //     .then(res => res.json())
+        //     .then(customers => setAcountExist(customers.some((c) => {
+        //         if (c.phoneNumber === inputPhoneNumber.current.value && c.password === inputPassword.current.value) {
+        //             setCustomer(c)
+        //             return true
+        //         } else if (c.phoneNumber === inputPhoneNumber.current.value && c.password === SHA256(password).toString()){
+        //             setCustomer(c)
+        //             return true
+        //         }
+        //             return false
+        //     })))
     }, [inputPassword.current.value, inputPhoneNumber.current.value])
     const handleOnSubmit = (e) => {
         e.preventDefault()

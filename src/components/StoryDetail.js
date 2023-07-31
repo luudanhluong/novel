@@ -150,7 +150,7 @@ const StoryDetail = ({ sid }) => {
                         </Row>
                     </Col>
                     <Col xs={12}>
-                        <ListChapter sid={sid} />
+                        <ListChapter sid={sid}  handleOnclickRead={handleOnclickRead}/>
                     </Col>
                 </Row>
             </Col>

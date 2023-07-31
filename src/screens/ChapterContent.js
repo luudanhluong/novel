@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { ChevronDoubleLeft, ChevronDoubleRight } from "react-bootstrap-icons";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import TopViewStories from "../components/TopViewStories";
 import DefaultTemplate from "../templates/DefaultTemplate";
 
@@ -14,7 +14,7 @@ const ChapterContent = () => {
     const [chapter, setChapter] = useState(cid)
     useEffect(() => {
         navigate(`/detail/${sid}/chapter/${chapter}`)
-    }, [sid, chapter])
+    }, [sid, chapter, navigate])
     useEffect(() => {
         fetch(`http://localhost:9999/chapterContent?storyId=${sid}&chapterId=${chapter}`)
             .then(res => res.json())
@@ -88,10 +88,8 @@ const ChapterContent = () => {
                     </Row>
                     <Row className="mt-4 mb-5">
                         <Col xs={12} className="text-center">
-                            <p>
-                                <Button onClick={(e) => handleMoveChapter(e)} className="btn-danger"><ChevronDoubleLeft /> Chương Trước</Button>
-                                <Button onClick={(e) => handleMoveChapter(e)} className="btn-danger">Chương Sau <ChevronDoubleRight /></Button>
-                            </p>
+                            <Button onClick={(e) => handleMoveChapter(e)} disabled={chapter===1?true:false} className="btn-danger me-1"><ChevronDoubleLeft /> Chương Trước</Button>
+                            <Button onClick={(e) => handleMoveChapter(e)} disabled={chapter===chapteres.length?true:false} className="btn-danger ms-1">Chương Sau <ChevronDoubleRight /></Button>
                         </Col>
                     </Row>
                 </Col>

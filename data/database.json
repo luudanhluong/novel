@@ -1,4 +1,14 @@
 {
+  "Users": [
+    {
+      "username": "admin",
+      "email": "Luongldhe163727@fpt.edu.vn",
+      "phoneNumber": "0375297014",
+      "password": "020141b0381b7818bba0092671dc3524fb1b47cbc5dadec0334e38723906e0e4",
+      "role": 1,
+      "id": 1
+    }
+  ],
   "Categories": [
     {
       "id": 1,
@@ -108,7 +118,7 @@
       "description": "Nữ chính trong một lần tai nạn xe bị sinh vật bí ẩn gá vào người, sau khi tỉnh lại đến một thế giới yêu linh. Trong lúc cô ấy sợ hãi, tuyệt vọng thì xuất hiện một thiếu niên cứu cô ta về hiện thế...",
       "image": "https://nettruyenco.vn/public/images/comics/dai-tuong-vo-hinh.jpg",
       "updateTime": "2002-10-01",
-      "view": 17
+      "view": 30
     },
     {
       "id": 6,

@@ -3,13 +3,13 @@ import { Col, Row } from "react-bootstrap";
 import { List } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 
-const ListChapter = ({ sid }) => {
+const ListChapter = ({ sid, handleOnclickRead }) => {
     const [chapteres, setChapteres] = useState([])
     useEffect(() => {
-        fetch("http://localhost:9999/chapter?rateStoryId=" + sid)
+        fetch("http://localhost:9999/chapter?storyId=" + sid)
             .then(res => res.json())
             .then(data => setChapteres(data.sort((a, b) => b['id'] - a['id'])))
-    }, [sid])
+    }, [sid]) 
     function countTime(pastTime) {
         let value = new Date() - new Date(pastTime);
         if (Math.floor((value / 3600) / 60) < 60) {
@@ -55,7 +55,7 @@ const ListChapter = ({ sid }) => {
                                             <Row>
                                                 <Col xs={8}>
                                                     <p className="m-0">
-                                                        <Link className="name_chapter text-dark" to={`/detail/${sid}/chapter/${chapter.id}`}>Chương {chapter.id}{chapter.name === "" ? "" : ` - ${chapter.name}`}</Link>
+                                                        <Link className="name_chapter text-dark" onClick={(e)=>handleOnclickRead(e)} to={`/detail/${sid}/chapter/${chapter.id}`}>Chương {chapter.id}{chapter.name === "" ? "" : ` - ${chapter.name}`}</Link>
                                                     </p>
                                                 </Col>
                                                 <Col xs={4}>

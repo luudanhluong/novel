@@ -3,8 +3,7 @@ import { SHA256 } from 'crypto-js';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'react-bootstrap-icons';
-import FormGroup from '../components/common/FormGroup'
-import axios from 'axios';
+import FormGroup from '../components/FormGroup' 
 import '../styles/register.css'
 
 const initFormValue = {
@@ -42,6 +41,7 @@ function Register() {
     const [emailExist, setEmailExist] = useState([])
     const [passwordConfirm, setPasswordConfirm] = useState([])
     const [phoneNumberExist, setPhoneNumberExist] = useState([])
+    const header = { "content-type": "application/json", }
     const validateForm = (parentElement, e) => {
         const formErrorMessage = parentElement.querySelector('.form-message')
         const { name } = e
@@ -127,15 +127,7 @@ function Register() {
         const formErrorMessage = getParentElement(e.target).querySelector('.form-message')
         formErrorMessage.innerText = ''
         getParentElement(e.target).classList.remove('invalid')
-    }
-    useEffect(() => {
-        fetch('http://localhost:9999/customers')
-            .then(res => res.json())
-            .then(users => setEmailExist(users.filter((user) => user.email === formValue.email)))
-        fetch('http://localhost:9999/customers')
-            .then(res => res.json())
-            .then(users => setPhoneNumberExist(users.filter((user) => user.phoneNumber === formValue.phoneNumber)))
-    }, [formValue.email, formValue.phoneNumber])
+    } 
     var count = 0
     const handleOnSubmit = (e) => {
         e.preventDefault()
@@ -158,9 +150,13 @@ function Register() {
             validateForm(getParentElement(document.getElementById('active')), document.getElementById('active'))
         }
         if (Object.keys(formError).length === 0) {
-            const addUser = async (Customer) => {
+            const addUser = (Customer) => {
                 try {
-                    await axios.post('http://localhost:9999/customers', Customer)
+                    fetch('http://localhost:9999/Users', {
+                        method: "POST",
+                        body: JSON.stringify(Customer),
+                        headers: header
+                    })
                         .then(response => {
                             if (response.status >= 200 && response.status < 300) {
                                 localStorage.setItem('register_success', 'register_success')
