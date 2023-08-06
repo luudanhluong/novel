@@ -1,55 +1,73 @@
 import { useEffect, useState } from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import CalTime from "./CalTime";
+import HandleOnclickRead from "./HandleOnclickReade";
 
-const ViewList = ({ stories }) => {
-    const navigate = useNavigate("")
+const ViewList = ({ sort, categoryValue, statusValue }) => {
     const [chapteres, setChapteres] = useState([])
-    const header = { "content-type": "application/json", }
+    const [stories, setStories] = useState([]) 
+    const [categoryId, setCategoryId] = useState('0')
+    const [statusId, setStatusId] = useState('1') 
+    useEffect(() => {
+        fetch("http://localhost:9999/Stories")
+            .then(res => res.json())
+            .then(data => setStories(data.filter(d => {
+                if(categoryId === '0' || typeof categoryValue === "undefined" || statusId === "0"){
+                    if(statusId === "1"){
+                        return true
+                    }else if( statusId === "2"){
+                        return d.status === "Đã hoàn thành"
+                    }else if( statusId === "3"){
+                        return d.status === "Đang cập nhật"
+                    }
+                    return true
+                }else {
+                    if(statusId === "1"){
+                        return true && d.categoryId.includes(categoryId)
+                    }else if( statusId === "2"){
+                        return d.status === "Đã hoàn thành" && d.categoryId.includes(categoryId)
+                    }else if( statusId === "3"){
+                        return d.status === "Đang cập nhật" && d.categoryId.includes(categoryId)
+                    }
+                    return d.categoryId.includes(categoryId)
+                }
+            })))
+    }, [categoryId, categoryValue, statusId]) 
+    useEffect(()=>{
+        setCategoryId(categoryValue)
+        setStatusId(statusValue)
+    }, [categoryValue, statusValue])
     useEffect(() => {
         fetch("http://localhost:9999/chapter")
             .then(res => res.json())
             .then(data => setChapteres(data.sort((a, b) => b['id'] - a['id'])))
     }, [])
-    const handleOnclickRead = (e, story) => {
-        if (chapteres.length === 0) {
-            toast.warning("Truyện hiện đang cập nhật xin chờ thêm.")
-        } else {
-            const newViewStory = {
-                ...story,
-                view: story.view += 1
+    stories.map(story => {
+        story.chapters = chapteres.filter(chapter => chapter.storyId === story.id).slice(0, 3)
+        story.chapterQtt = chapteres.reduce((acc, chapter) => {
+            if (chapter.storyId === story.id) {
+                acc++
             }
-            fetch("http://localhost:9999/Stories/" + story.id, {
-                method: "PUT",
-                body: JSON.stringify(newViewStory),
-                headers: header
-            })
-            if (e.target.innerText === "Đọc từ đầu") {
-                navigate(`/detail/${story.id}/chapter/${1}`)
-            } else if (e.target.innerText === "Đọc mới nhất") {
-                navigate(`/detail/${story.id}/chapter/${chapteres.length}`)
-            }
+            return acc
+        }, 0)
+    }) 
+    stories.sort((a, b) => {
+        if (sort === "1") {
+            return new Date(a["updateDate"]) - new Date(b["updateDate"])
+        } else if (sort === "2") {
+            return new Date(a["publicDate"]) - new Date(b["publicDate"])
+        } else if (sort === "3") {
+            return b["view"] - a["view"]
+        } else if (sort === "4") {
+            return true
+        } else if (sort === "5") {
+            return new Date(a["updateDate"]) - new Date(b["updateDate"])
+        } else if (sort === "6") { 
+            return b["chapterQtt"] - a["chapterQtt"]
         }
-    }
-    function countTime(pastTime) {
-        let value = new Date() - new Date(pastTime);
-        if (Math.floor((value / 3600) / 60) < 60) {
-            if (Math.floor((value / 3600) / 60) === 0) {
-                return `Vài giây trước`
-            } else {
-                return `${Math.floor((value / 3600) / 60)} phút trước`
-            }
-        } else if ((Math.floor((value / 3600) / 60 / 24)) < 24) {
-            return `${(Math.floor((value / 3600) / 60 / 24))} giờ trước`
-        } else if ((Math.floor((value / 3600) / 60 / 24 / 30)) < 30) {
-            return `${(Math.floor((value / 3600) / 60 / 24 / 30))} ngày trước`
-        } else if ((Math.floor((value / 3600) / 60 / 24 / 30 / 12) < 12)) {
-            return `${(Math.floor((value / 3600) / 60 / 24 / 30 / 12))} tháng trước`
-        } else {
-            return `${(Math.floor((value / 3600) / 60 / 24 / 30 / 12 / 11))} năm trước`
-        }
-    }
+        return true
+    })
     return (
         <Row>
             {
@@ -63,12 +81,12 @@ const ViewList = ({ stories }) => {
                                 <Card.Subtitle className="name_card_item fs-6">{story.name}</Card.Subtitle>
                                 <ul className="content_header m-0 p-0">
                                     {
-                                        chapteres.map((chapter, index) => (
-                                            chapter.storyId === story.id && index < 3
+                                        story.chapters.map((chapter) => (
+                                            1
                                                 ? (
                                                     <li key={chapter.id} className={`mx-0 lh-1`}>
-                                                        <Link onClick={(e) => handleOnclickRead(e, story)} to={`/detail/${story.id}/chapter/${chapter.id}`} className="m-0 pe-2 text-decoration-none text-dark chapter_list_view name_chapter">Chương {chapter.id}{chapter.name === "" ? "" : ` - ${chapter.name}`}</Link>
-                                                        <i className="m-0 time_update fw-lighter chapter_list_view_time">{countTime(chapter.date)}</i>
+                                                        <Link onClick={(e) => HandleOnclickRead(e, story, chapteres)} to={`/detail/${story.id}/chapter/${chapter.id}`} className="m-0 pe-2 text-decoration-none text-dark chapter_list_view name_chapter">Chương {chapter.chapterNo}{chapter.name === "" ? "" : ` - ${chapter.name}`}</Link>
+                                                        <i className="m-0 time_update fw-lighter chapter_list_view_time">{CalTime(chapter.date)}</i>
                                                     </li>
                                                 ) : ""
                                         ))

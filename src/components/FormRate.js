@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react"; 
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const FormRate = ({ sid, onchangeRateNo }) => {
+const FormRate = ({ sid, onchangeRateNo, story }) => {
+    const navigate = useNavigate("")
     const [rateStories, setRateStories] = useState([])
     const [rateNo, setRateNo] = useState(0)
-    const header = { "content-type": "application/json", } 
+    const user = JSON.parse(localStorage.getItem("user"))
+    const header = { "content-type": "application/json", }
     let results
     if (rateStories.length >= 1) {
         let totalRate = rateStories.reduce((accumulator, rateStory) => {
@@ -18,40 +22,45 @@ const FormRate = ({ sid, onchangeRateNo }) => {
         } else if (avgRate % 1 === 0) {
             results = avgRate;
         }
-    } 
+    }
     const handleOnclickRate = (e) => {
-        setRateNo(e.target.value) 
-        onchangeRateNo(e.target.value)
-        let body = {
-            rateNo: parseInt(e.target.value),
-            rateStoryId: parseInt(sid),
-            userId: 1
-        }
-        if (rateStories.length === 0) {
-            fetch("http://localhost:9999/rateStory", {
-                method: "POST",
-                body: JSON.stringify(body),
-                headers: header
-            })
-        } else if (rateStories.length !== 0) {
-            let count = 0
-            rateStories.map(rateStory => {
-                if (rateStory.userId === 1 && rateStory.rateStoryId === parseInt(sid)) {
-                    count += 1
-                    fetch(`http://localhost:9999/rateStory/${rateStory.id}`, {
-                        method: "PUT",
-                        body: JSON.stringify(body),
-                        headers: header
-                    })
-                }
-                return true;
-            })
-            if (count === 0) {
+        if (user === null) {
+            navigate("/login")
+        } else {
+            setRateNo(e.target.value)
+            onchangeRateNo(e.target.value)
+            toast.success(`Bạn đã đánh giá ${e.target.value} sao cho ${story.name}`)
+            let body = {
+                rateNo: parseInt(e.target.value),
+                rateStoryId: parseInt(sid),
+                userId: user.id
+            }
+            if (rateStories.length === 0) {
                 fetch("http://localhost:9999/rateStory", {
                     method: "POST",
                     body: JSON.stringify(body),
                     headers: header
                 })
+            } else if (rateStories.length !== 0) {
+                let count = 0
+                rateStories.map(rateStory => {
+                    if (rateStory.userId === user.id && rateStory.rateStoryId === parseInt(sid)) {
+                        count += 1
+                        fetch(`http://localhost:9999/rateStory/${rateStory.id}`, {
+                            method: "PUT",
+                            body: JSON.stringify(body),
+                            headers: header
+                        })
+                    }
+                    return true;
+                })
+                if (count === 0) {
+                    fetch("http://localhost:9999/rateStory", {
+                        method: "POST",
+                        body: JSON.stringify(body),
+                        headers: header
+                    })
+                }
             }
         }
     }
@@ -78,5 +87,5 @@ const FormRate = ({ sid, onchangeRateNo }) => {
             <label class="full" htmlFor="star1" title="Sucks big time - 1 star"></label>
         </div>
     );
-} 
+}
 export default FormRate;

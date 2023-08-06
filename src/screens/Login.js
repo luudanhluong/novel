@@ -104,7 +104,7 @@ function Login() {
     }
     useEffect(() => {
         const getRem = localStorage.getItem('rem')
-        const getCustomer = JSON.parse(localStorage.getItem('customer'))
+        const getCustomer = JSON.parse(localStorage.getItem('user'))
         if (getRem && getCustomer) {
             setFormValue(getCustomer)
         }
@@ -118,18 +118,18 @@ function Login() {
         getParentElement(e.target).classList.remove('invalid')
     } 
     useEffect(() => {
-        // fetch('http://localhost:9999/customers')
-        //     .then(res => res.json())
-        //     .then(customers => setAcountExist(customers.some((c) => {
-        //         if (c.phoneNumber === inputPhoneNumber.current.value && c.password === inputPassword.current.value) {
-        //             setCustomer(c)
-        //             return true
-        //         } else if (c.phoneNumber === inputPhoneNumber.current.value && c.password === SHA256(password).toString()){
-        //             setCustomer(c)
-        //             return true
-        //         }
-        //             return false
-        //     })))
+        fetch('http://localhost:9999/Users')
+            .then(res => res.json())
+            .then(customers => setAcountExist(customers.some((c) => {
+                if (c.phoneNumber === inputPhoneNumber.current.value && c.password === inputPassword.current.value) {
+                    setCustomer(c)
+                    return true
+                } else if (c.phoneNumber === inputPhoneNumber.current.value && c.password === SHA256(password).toString()){
+                    setCustomer(c)
+                    return true
+                }
+                    return false
+            })))
     }, [inputPassword.current.value, inputPhoneNumber.current.value])
     const handleOnSubmit = (e) => {
         e.preventDefault()
@@ -143,7 +143,7 @@ function Login() {
             if (acountExist) {
                 localStorage.setItem('loginTime', new Date().getTime());
                 localStorage.setItem('rem', rem);
-                localStorage.setItem('customer', JSON.stringify(customer));
+                localStorage.setItem('user', JSON.stringify(customer));
             } else {
                 e.preventDefault()
                 const formErrorMessage = getParentElement(document.getElementById('phoneNumber')).querySelector('.form-message')
@@ -153,7 +153,7 @@ function Login() {
             e.preventDefault()
         }
         if (acountExist) {
-            localStorage.setItem('login_success', 'login_success')
+            sessionStorage.setItem('login_success', 'login_success')
             navigate('/')
         }
     }

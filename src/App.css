@@ -122,3 +122,38 @@ body, html {
 .chapter_list_view_time {
   font-size: 10px;
 }
+.fs-14 {
+  font-size: 14px;
+}
+.slider_list_item { 
+  white-space: nowrap;  
+  overflow: hidden; 
+  text-overflow: ellipsis;
+}
+.back_ground_opacity {
+  opacity: 0.85; 
+}
+.header_dropdown_width {
+  width: 500px;
+}
+.custom-cursor {
+  cursor: pointer;
+} 
+.over_content { 
+  overflow: hidden;
+  position: relative;
+}
+.over_content::after {
+  position: absolute;
+    content: '';
+    display: block;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 30px;
+    background: linear-gradient(rgba(255,255,255,0),white);
+}
+.read_more:hover {
+  text-decoration: underline;
+  color: #226ad0 !important;
+}

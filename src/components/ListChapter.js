@@ -1,33 +1,26 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
-import { List } from "react-bootstrap-icons";
+import Measure from "react-measure";
+import { List, Plus } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
+import CalTime from "./CalTime";
 
-const ListChapter = ({ sid, handleOnclickRead }) => {
+const ListChapter = ({ sid, handleOnclickRead }) => { 
     const [chapteres, setChapteres] = useState([])
+    const [heightValue, setHeightValue] = useState(0)
+    const [heightStatus, setHeightStatus] = useState(0)
     useEffect(() => {
         fetch("http://localhost:9999/chapter?storyId=" + sid)
             .then(res => res.json())
             .then(data => setChapteres(data.sort((a, b) => b['id'] - a['id'])))
-    }, [sid]) 
-    function countTime(pastTime) {
-        let value = new Date() - new Date(pastTime);
-        if (Math.floor((value / 3600) / 60) < 60) {
-            if (Math.floor((value / 3600) / 60) === 0) {
-                return `Vài giây trước`
-            } else {
-                return `${Math.floor((value / 3600) / 60)} phút trước`
-            }
-        } else if ((Math.floor((value / 3600) / 60 / 24)) < 24) {
-            return `${(Math.floor((value / 3600) / 60 / 24))} giờ trước`
-        } else if ((Math.floor((value / 3600) / 60 / 24 / 30)) < 30) {
-            return `${(Math.floor((value / 3600) / 60 / 24 / 30))} ngày trước`
-        } else if ((Math.floor((value / 3600) / 60 / 24 / 30 / 12) < 12)) {
-            return `${(Math.floor((value / 3600) / 60 / 24 / 30 / 12))} tháng trước`
-        } else {
-            return `${(Math.floor((value / 3600) / 60 / 24 / 30 / 12 / 11))} năm trước`
-        }
-    }
+    }, [sid])
+    const handleMeasure = (contentRect) => {
+        setHeightValue(contentRect.bounds.height)
+    };
+    useEffect(() => {
+        setHeightValue(0)
+        setHeightStatus(0)
+    }, [sid])
     return (
         <Row>
             <Col xs={12}>
@@ -45,27 +38,43 @@ const ListChapter = ({ sid, handleOnclickRead }) => {
                                     <p className="m-0 content_header_item">Số Chương</p>
                                 </Col>
                                 <Col xs={4}>
-                                    <p className="m-0 content_header_item">Cập nhật</p>
+                                    <p className="m-0 content_header_item position-relative">Cập nhật</p>
                                 </Col>
                             </Row>
-                            <ul className="content_header border mb-5 p-0">
-                                {
-                                    chapteres.map((chapter, index) => (
-                                        <li key={chapter.id} className={`Content_header_List_item pt-2 pb-2 mx-4 px-2 ${index === chapteres.length - 1 ? "last_item" : ""}`}>
-                                            <Row>
-                                                <Col xs={8}>
-                                                    <p className="m-0">
-                                                        <Link className="name_chapter text-dark" onClick={(e)=>handleOnclickRead(e)} to={`/detail/${sid}/chapter/${chapter.id}`}>Chương {chapter.id}{chapter.name === "" ? "" : ` - ${chapter.name}`}</Link>
-                                                    </p>
-                                                </Col>
-                                                <Col xs={4}>
-                                                    <p className="m-0 time_update">{countTime(chapter.date)}</p>
-                                                </Col>
-                                            </Row>
-                                        </li>
-                                    ))
-                                }
-                            </ul>
+                            <Row>
+                                <Col xs={12} className="">
+                                    <Measure bounds onResize={handleMeasure}>
+                                        {({ measureRef }) => (
+                                            <ul className={`content_header border mb-0 p-0 ${heightStatus === 1 ? "" : heightValue < 200 ? "" : "over_content"}`} style={{ height: `${heightValue < 200 ? "auto" : heightStatus === 1 ? "auto" : "200px"}` }} ref={measureRef}>
+                                                {
+                                                    chapteres.map((chapter, index) => (
+                                                        chapter.storyId === parseInt(sid) ?
+                                                            (
+                                                                <li key={chapter.id} className={`Content_header_List_item pt-2 pb-2 mx-4 px-2 ${index === chapteres.length - 1 ? "last_item" : ""}`}>
+                                                                    <Row>
+                                                                        <Col xs={8}>
+                                                                            <p className="m-0">
+                                                                                <Link className="name_chapter text-dark" onClick={(e) => handleOnclickRead(e)} to={`/detail/${sid}/chapter/${chapter.id}`}>Chương {chapter.chapterNo}{chapter.name === "" ? "" : ` - ${chapter.name}`}</Link>
+                                                                            </p>
+                                                                        </Col>
+                                                                        <Col xs={4}>
+                                                                            <p className="m-0 time_update">{CalTime(chapter.date)}</p>
+                                                                        </Col>
+                                                                    </Row>
+                                                                </li>
+                                                            ) : ""
+                                                    ))
+                                                }
+                                            </ul>
+                                        )}
+                                    </Measure>
+                                    {
+                                        heightStatus === 0 ? (
+                                            heightValue < 200 ? "" : <p className="text-center bg-light text-dark pt-2 pb-2"><span className="custom-cursor read_more" onClick={() => setHeightStatus(1)}>Xem Thêm<Plus /></span> </p>
+                                        ) : ""
+                                    }
+                                </Col>
+                            </Row>
                         </Col>
                     ) :
                     (

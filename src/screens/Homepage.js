@@ -1,20 +1,19 @@
-import { useEffect, useState } from 'react';
+
 import { Row, Col } from 'react-bootstrap'
+import { toast } from 'react-toastify';
 import SliderComponent from '../components/SliderComponent';
 import TopViewStories from '../components/TopViewStories';
 import ViewList from '../components/ViewList';
 import DefaultTemplate from "../templates/DefaultTemplate";
 
 const Homepage = () => {
-    const [stories, setStories] = useState([])
-    useEffect(() => {
-        fetch("http://localhost:9999/Stories")
-            .then(res => res.json())
-            .then(data => setStories(data))
-    }, [])
+    if (sessionStorage.getItem("login_success")) {
+        toast.success("Đăng nhập thành công!")
+        sessionStorage.removeItem("login_success")
+    }
     return (
         <DefaultTemplate>
-            <SliderComponent data={stories} />
+            <SliderComponent />
             <Row className='d-flex justify-content-center'>
                 <Col xs={10}>
                     <Row>
@@ -22,7 +21,7 @@ const Homepage = () => {
                             <h4 className="text-info">Truyện mới cập nhật</h4>
                         </Col>
                         <Col xs={8}>
-                            <ViewList stories={stories} />
+                            <ViewList />
                         </Col>
                         <Col xs={4}>
                             <TopViewStories />

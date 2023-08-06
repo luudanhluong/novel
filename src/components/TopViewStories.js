@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { EyeFill } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
+import CountView from "./CountView";
 
 const TopViewStories = () => {
     const navigate = useNavigate('')
@@ -28,6 +29,7 @@ const TopViewStories = () => {
             return acc
         }, 0)
     }
+
     return (
         <Row className={"border"}>
             <Col className="mt-2 mb-3 pt-1 pb-1 border-bottom border-2 border-info">
@@ -57,7 +59,7 @@ const TopViewStories = () => {
                                                             }</p>
                                                         </Col>
                                                         <Col xs={5}>
-                                                            <p className="m-0 top_view_item d-flex"><p className="m-0 me-1"><EyeFill /></p><p className="m-0">{story.view}</p></p>
+                                                            <p className="m-0 top_view_item d-flex"><p className="m-0 me-1"><EyeFill /></p><p className="m-0">{CountView(story.view)}</p></p>
                                                         </Col>
                                                     </Row>
                                                 </li>

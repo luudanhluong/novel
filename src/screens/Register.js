@@ -3,7 +3,7 @@ import { SHA256 } from 'crypto-js';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'react-bootstrap-icons';
-import FormGroup from '../components/FormGroup' 
+import FormGroup from '../components/FormGroup'
 import '../styles/register.css'
 
 const initFormValue = {
@@ -31,16 +31,16 @@ const isPassword = (value) => {
 function Register() {
     const navigate = useNavigate();
     const inputUsername = useRef(null)
-    const inputEmail = useRef(null)
-    const inputPhoneNumber = useRef(null)
+    const inputEmail = useRef("")
+    const inputPhoneNumber = useRef("")
     const inputPassword = useRef(null)
     const inputPasswordConfirm = useRef(null)
     const inputCheck = useRef(null)
     const [formValue, setFormValue] = useState(initFormValue)
     const [formError, setFormError] = useState({})
-    const [emailExist, setEmailExist] = useState([])
-    const [passwordConfirm, setPasswordConfirm] = useState([])
-    const [phoneNumberExist, setPhoneNumberExist] = useState([])
+    const [checkExist, setCheckExist] = useState([])
+    const [passwordConfirm, setPasswordConfirm] = useState({})
+    const [phoneNumberExist, setPhoneNumberExist] = useState({})
     const header = { "content-type": "application/json", }
     const validateForm = (parentElement, e) => {
         const formErrorMessage = parentElement.querySelector('.form-message')
@@ -95,7 +95,7 @@ function Register() {
             parentElement.classList.remove('invalid')
         }
         return Object.keys(error).length === 0
-    } 
+    }
     const handleOnChange = (e) => {
         const { value, name } = e.target
         if (name !== 'active' && name !== 'passwordConfirm') {
@@ -108,8 +108,7 @@ function Register() {
     const handleOnChangePasswordConfirm = (e) => {
         setPasswordConfirm(e.target.value)
     }
-    const getParentElement = (element) => {
-        let formGroup = '.form-group_register'
+    const getParentElement = (element, formGroup) => {
         let parentElement
         while (element.parentElement) {
             if (element.parentElement.matches(formGroup)) {
@@ -121,33 +120,42 @@ function Register() {
         return parentElement
     }
     const handleOnBlur = (e) => {
-        validateForm(getParentElement(e.target), e.target)
+        validateForm(getParentElement(e.target, ".form-group_register"), e.target)
     }
     const handleOnFocus = (e) => {
-        const formErrorMessage = getParentElement(e.target).querySelector('.form-message')
+        const formErrorMessage = getParentElement(e.target, ".form-group_register").querySelector('.form-message')
         formErrorMessage.innerText = ''
-        getParentElement(e.target).classList.remove('invalid')
-    } 
+        getParentElement(e.target, ".form-group_register").classList.remove('invalid')
+    }
+    useEffect(() => {
+        fetch("http://localhost:9999/Users")
+            .then(res => res.json())
+            .then(data => setCheckExist(data))
+    }, [])
+    let emailExist = false
+    let phoneExist = false
+    checkExist.map(check => check.email === inputEmail.current.value ? emailExist = true : false)
+    checkExist.map(check => check.phoneNumber === inputPhoneNumber.current.value ? phoneExist = true : false)  
     var count = 0
     const handleOnSubmit = (e) => {
         e.preventDefault()
         if (!inputUsername.current.value) {
-            validateForm(getParentElement(document.getElementById('username')), document.getElementById('username'))
+            validateForm(getParentElement(document.getElementById('username'), ".form-group_register"), document.getElementById('username'))
         }
         if (!inputEmail.current.value) {
-            validateForm(getParentElement(document.getElementById('email')), document.getElementById('email'))
+            validateForm(getParentElement(document.getElementById('email'), ".form-group_register"), document.getElementById('email'))
         }
         if (!inputPhoneNumber.current.value) {
-            validateForm(getParentElement(document.getElementById('phoneNumber')), document.getElementById('phoneNumber'))
+            validateForm(getParentElement(document.getElementById('phoneNumber'), ".form-group_register"), document.getElementById('phoneNumber'))
         }
         if (!inputPassword.current.value) {
-            validateForm(getParentElement(document.getElementById('password')), document.getElementById('password'))
+            validateForm(getParentElement(document.getElementById('password'), ".form-group_register"), document.getElementById('password'))
         }
         if (!inputPasswordConfirm.current.value) {
-            validateForm(getParentElement(document.getElementById('passwordConfirm')), document.getElementById('passwordConfirm'))
+            validateForm(getParentElement(document.getElementById('passwordConfirm'), ".form-group_register"), document.getElementById('passwordConfirm'))
         }
         if (!inputCheck.current.checked) {
-            validateForm(getParentElement(document.getElementById('active')), document.getElementById('active'))
+            validateForm(getParentElement(document.getElementById('active'), ".form-group_register"), document.getElementById('active'))
         }
         if (Object.keys(formError).length === 0) {
             const addUser = (Customer) => {
@@ -166,32 +174,32 @@ function Register() {
                 } catch (error) {
                     const errorMsg = Object.keys(formValue)
                     errorMsg.map(e => (
-                        getParentElement(document.getElementById(e))
+                        getParentElement(document.getElementById(e), ".form-group_register")
                             .querySelector('.form-message')
                             .innerText = 'Error! An error occurred. Please try again later'
                     ))
                     console.error('Lỗi khi thêm người dùng:', error);
                 }
             };
-            if (emailExist.length !== 0 && typeof formError.email === 'undefined') {
+            if (emailExist && typeof formError.email === 'undefined') {
                 e.preventDefault()
                 if (typeof formError.email === 'string' || typeof formError.email === 'undefined') {
-                    const formErrorMessage = getParentElement(document.getElementById('email')).querySelector('.form-message')
+                    const formErrorMessage = getParentElement(document.getElementById('email'), ".form-group_register").querySelector('.form-message')
                     formErrorMessage.innerText = 'This email is exist'
                 }
             }
-            if (phoneNumberExist.length !== 0 && typeof formError.phoneNumber === 'undefined') {
+            if (phoneExist && typeof formError.phoneNumber === 'undefined') {
                 e.preventDefault()
                 if (typeof formError.phoneNumber === 'string' || typeof formError.phoneNumber === 'undefined') {
-                    const formErrorMessage = getParentElement(document.getElementById('phoneNumber')).querySelector('.form-message')
+                    const formErrorMessage = getParentElement(document.getElementById('phoneNumber'), ".form-group_register").querySelector('.form-message')
                     formErrorMessage.innerText = 'This phone number is exist'
                 }
             }
-            if (phoneNumberExist.length === 0 && emailExist.length === 0) {
+            if (!emailExist && !phoneExist) {
                 const keys = Object.keys(formValue)
                 keys.some(id => {
                     if (id !== 'customerId' && id !== 'role' && document.getElementById(id).value !== '') {
-                        count++ 
+                        count++
                         if (count === 4) {
                             addUser({
                                 username: formValue.username,
