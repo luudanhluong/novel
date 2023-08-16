@@ -4,8 +4,7 @@ import { ChevronRight } from "react-bootstrap-icons";
 import Measure from "react-measure";
 const StoryDescription = ({ sid, story }) => {
     const [heightStatus, setHeightStatus] = useState(0)
-    const [heightValue, setHeightValue] = useState(0)
-    console.log("heightValue " + heightValue);
+    const [heightValue, setHeightValue] = useState(0) 
     const handleMeasure = (contentRect) => {
         setHeightValue(contentRect.bounds.height)
     };

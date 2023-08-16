@@ -15,8 +15,12 @@ const SliderComponent = () => {
     useEffect(() => {
         fetch("http://localhost:9999/Stories")
             .then(res => res.json())
-            .then(data => setStories(data))
+            .then(data => setStories(data.sort((a, b) => new Date(b['updateDate']) - new Date(a['updateDate']))))
     }, [])
+    stories.map(story => {
+        story.chapters = chapteres.filter(chapter => chapter.storyId === story.id).slice(0, 1)
+    })
+    console.log(stories);
     const settings = {
         speed: 500,
         autoplaySpeed: 2500,
@@ -71,12 +75,12 @@ const SliderComponent = () => {
                                     <ul className='m-0 p-0 pt-1 pb-1 bg-dark h-25 back_ground_opacity list-unstyled position-absolute bottom-0 start-0 end-0 ms-2 me-2' style={{ zIndex: 99999 }}>
                                         <li className='text-center'><h6 className='slider_list_item ps-1 pe-1 mb-1 text-white'>{d.name}</h6></li>
                                         {
-                                            chapteres.map((chapter, index) => (
-                                                chapter.storyId === d.id && index === 0 ?
+                                            d.chapters.map((chapter) => (
+                                                chapter.storyId === d.id?
                                                     (
                                                         <li key={chapter.id} className={`mx-0 lh-1 text-center`}>
-                                                            <Link to={`/detail/${d.id}/chapter/${chapter.id}`} className="m-0 pe-2 text-decoration-none text-white chapter_list_view name_chapter">Chương {chapter.id}{chapter.name === "" ? "" : ` - ${chapter.name}`}</Link>
-                                                            <i className="m-0 time_update fw-lighter chapter_list_view_time">{CalTime(chapter.date)}</i>
+                                                            <Link to={`/detail/${d.id}/chapter/${chapter.id}`} className="m-0 pe-2 text-decoration-none text-white chapter_list_view name_chapter">Chương {chapter.chapterNo}{chapter.name === "" ? "" : ` - ${chapter.name}`}</Link>
+                                                            <i className="m-0 time_update fw-lighter text-white chapter_list_view_time">{CalTime(chapter.date)}</i>
                                                         </li>
                                                     ): ""
                                             ))

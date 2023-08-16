@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { ChevronDoubleLeft, ChevronDoubleRight, ChevronLeft, ChevronRight, House, HouseFill, List } from "react-bootstrap-icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import FormComment from "../components/FormComment";
 import TopViewStories from "../components/TopViewStories";
 import DefaultTemplate from "../templates/DefaultTemplate";
 
@@ -100,6 +101,11 @@ const ChapterContent = () => {
                         <Col xs={12} className="text-center">
                             <Button onClick={(e) => handleMovePrev(e)} disabled={parseInt(chapter) === 1} className="btn-danger me-1"><ChevronDoubleLeft onClick={(e) => handleMovePrev(e)} disabled={parseInt(chapter) === 1} /> Chương Trước</Button>
                             <Button onClick={(e) => handleMoveNext(e)} disabled={parseInt(chapter) === chapteres.length} className="btn-danger ms-1">Chương Sau <ChevronDoubleRight onClick={(e) => handleMoveNext(e)} disabled={parseInt(chapter) === chapteres.length} /></Button>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={12}>
+                            <FormComment sid={sid} />
                         </Col>
                     </Row>
                 </Col>

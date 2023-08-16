@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
-import { ChatFill, Eye, HeartFill, ListUl } from "react-bootstrap-icons";
+import { ArrowRepeat, ChatFill, CloudArrowUpFill,EyeFill, HeartFill, ListUl } from "react-bootstrap-icons";
 const SearchBy = ({handleSort, handleStatus}) => {
     const [status, setStatus] = useState('1')
     const [sort, setSort] = useState('1')
@@ -8,9 +8,29 @@ const SearchBy = ({handleSort, handleStatus}) => {
         setStatus(e.target.value)
         handleStatus(e.target.value)
     }
-    const handleOnclickSort = (e) => {
-        setSort(e.target.value)
-        handleSort(e.target.value)
+    const handleOnclickSortUpdate = (e) => {
+        setSort("1")
+        handleSort("1")
+    }
+    const handleOnclickSortNew = (e) => {
+        setSort("2")
+        handleSort("2")
+    }
+    const handleOnclickSortTop = (e) => {
+        setSort("3")
+        handleSort("3")
+    }
+    const handleOnclickSortFollow = (e) => {
+        setSort("4")
+        handleSort("4")
+    }
+    const handleOnclickSortComment = (e) => {
+        setSort("5")
+        handleSort("5")
+    }
+    const handleOnclickSortChapter = (e) => {
+        setSort("6")
+        handleSort("6")
     }
     return (
         <Row className={"pt-2"}>
@@ -32,13 +52,12 @@ const SearchBy = ({handleSort, handleStatus}) => {
                 <h6>Sắp xếp theo:</h6>
             </Col>
             <Col xs={9}>
-                <Button onClick={(e) => handleOnclickSort(e)} value="1" className={`${sort === "1" ? "bg-warning text-white" : "bg-light text-dark"} border-0 mx-1 mb-1`}>Ngày cập nhật</Button>
-                <Button onClick={(e) => handleOnclickSort(e)} value="2" className={`${sort === "2" ? "bg-warning text-white" : "bg-light text-dark"} border-0 mx-1 mb-1`}>Truyện mới</Button>
-                <Button onClick={(e) => handleOnclickSort(e)} value="3" className={`${sort === "3" ? "bg-warning text-white" : "bg-light text-dark"} border-0 mx-1 mb-1`}><Eye/> Top all</Button> 
-                <Button onClick={(e) => handleOnclickSort(e)} value="4" className={`${sort === "4" ? "bg-warning text-white" : "bg-light text-dark"} border-0 mx-1 mb-1`}><HeartFill/> Theo dõi</Button>
-                <Button onClick={(e) => handleOnclickSort(e)} value="5" className={`${sort === "5" ? "bg-warning text-white" : "bg-light text-dark"} border-0 mx-1 mb-1`}><ChatFill /> Bình luận</Button>
-                <Button onClick={(e) => handleOnclickSort(e)} value="6" className={`${sort === "6" ? "bg-warning text-white" : "bg-light text-dark"} border-0 mx-1 mb-1`}><ListUl /> Số chương</Button>
-                <Button onClick={(e) => handleOnclickSort(e)} value="7" className={`${sort === "7" ? "bg-warning text-white" : "bg-light text-dark"} border-0 mx-1 mb-1`}><ListUl /> Top Follow</Button>
+                <Button onClick={(e) => handleOnclickSortUpdate(e)} className={`${sort === "1" ? "bg-warning text-white" : "bg-light text-dark"} border-0 mx-1 mb-1`}><ArrowRepeat onClick={(e) => handleOnclickSortUpdate(e)}/> Ngày cập nhật</Button>
+                <Button onClick={(e) => handleOnclickSortNew(e)} className={`${sort === "2" ? "bg-warning text-white" : "bg-light text-dark"} border-0 mx-1 mb-1`}><CloudArrowUpFill onClick={(e) => handleOnclickSortNew(e)}/> Truyện mới</Button>
+                <Button onClick={(e) => handleOnclickSortTop(e)} className={`${sort === "3" ? "bg-warning text-white" : "bg-light text-dark"} border-0 mx-1 mb-1`}><EyeFill onClick={(e) => handleOnclickSortTop(e)}/> Top all</Button> 
+                <Button onClick={(e) => handleOnclickSortFollow(e)} className={`${sort === "4" ? "bg-warning text-white" : "bg-light text-dark"} border-0 mx-1 mb-1`}><HeartFill onClick={(e) => handleOnclickSortFollow(e)}/> Theo dõi</Button>
+                <Button onClick={(e) => handleOnclickSortComment(e)} className={`${sort === "5" ? "bg-warning text-white" : "bg-light text-dark"} border-0 mx-1 mb-1`}><ChatFill onClick={(e) => handleOnclickSortComment(e)}/> Bình luận</Button>
+                <Button onClick={(e) => handleOnclickSortChapter(e)} className={`${sort === "6" ? "bg-warning text-white" : "bg-light text-dark"} border-0 mx-1 mb-1`}><ListUl onClick={(e) => handleOnclickSortChapter(e)}/> Số chương</Button> 
             </Col>
         </Row>
     );

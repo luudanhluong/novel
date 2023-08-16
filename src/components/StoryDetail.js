@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { ExclamationCircleFill, EyeFill, FileText, PersonFill, TagsFill } from 'react-bootstrap-icons'
+import { ExclamationCircleFill, EyeFill, FileText, PersonFill, RssFill, TagsFill } from 'react-bootstrap-icons'
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import FormRate from "./FormRate";
@@ -9,6 +9,8 @@ import ListChapter from "./ListChapter";
 import SplitNumber from "./SplitNumber";
 import Time from "./UpdateTime";
 import StoryDescription from "./StoryDescription";
+import FormComment from "./FormComment";
+import { DELETE, header, POST } from "./Type";
 const StoryDetail = () => {
     const { sid } = useParams('')
     const navigate = useNavigate('')
@@ -20,8 +22,7 @@ const StoryDetail = () => {
     const [followStory, setFollowStory] = useState({})
     const [rateNo, setRateNo] = useState(0)
     const [followStatus, setFollowStatus] = useState(0)
-    const user = JSON.parse(localStorage.getItem("user"))
-    const header = { "content-type": "application/json", }
+    const user = JSON.parse(localStorage.getItem("user")) 
     let storyCategory = "";
     if (typeof story.categoryId !== 'undefined') {
         categories.map(category => {
@@ -106,23 +107,27 @@ const StoryDetail = () => {
         }
     }
     const handleFollow = (e) => {
-        setFollowStatus(parseInt(e.target.value) ? 0 : 1)
-        const follower = {
-            storyId: story.id,
-            userId: user.id
-        }
-        if (typeof followStory === "undefined") {
-            toast.success(`Bạn đã theo dõi truyện ${story.name}. Chúng tôi sẽ gửi thông báo cho bạn khi truyện cập nhật`)
-            fetch("http://localhost:9999/followStory", {
-                method: "POST",
-                body: JSON.stringify(follower),
-                headers: header
-            })
+        if (user === null) {
+            navigate("/login")
         } else {
-            toast.error(`Bạn đã hủy theo dõi truyện ${story.name}. Bạn sẽ không nhận thông báo từ chúng tôi nữa`)
-            fetch("http://localhost:9999/followStory/" + followStory.id, {
-                method: "DELETE"
-            })
+            setFollowStatus(parseInt(e.target.value) ? 0 : 1)
+            const follower = {
+                storyId: story.id,
+                userId: user.id
+            }
+            if (e.target.innerText === "Theo dõi") {
+                toast.success(`Bạn đã theo dõi truyện ${story.name}. Chúng tôi sẽ gửi thông báo cho bạn khi truyện cập nhật`)
+                fetch("http://localhost:9999/followStory", {
+                    method: POST,
+                    body: JSON.stringify(follower),
+                    headers: header
+                })
+            } else {
+                toast.error(`Bạn đã hủy theo dõi truyện ${story.name}. Bạn sẽ không nhận thông báo từ chúng tôi nữa`)
+                fetch("http://localhost:9999/followStory/" + followStory.id, {
+                    method: DELETE
+                })
+            }
         }
     }
     return (
@@ -134,40 +139,42 @@ const StoryDetail = () => {
             <Col xs={12}>
                 <Row>
                     <Col xs={4} className="d-flex justify-content-end">
-                        <img className="img_detail" src={story.image} alt={story.name} />
+                        <img className="img_detail border border-dark" src={story.image} alt={story.name} />
                     </Col>
                     <Col xs={8} className="d-flex justify-content-start">
                         <ul className="">
                             <li className="d-flex">
                                 <p className="m-0"><PersonFill size={28} /></p>
-                                <p class="story_detail_item m-0 item_primary">Tác giả:</p>
-                                <p class="story_detail_item m-0">{story.author}</p>
+                                <p className="story_detail_item m-0 item_primary">Tác giả:</p>
+                                <p className="story_detail_item m-0">{story.author}</p>
                             </li>
                             <li className="d-flex ">
                                 <p className="m-0"><ExclamationCircleFill size={24} /></p>
-                                <p class="story_detail_item m-0 item_primary">Tình Trạng:</p>
-                                <p class="story_detail_item m-0">{story.status}</p>
+                                <p className="story_detail_item m-0 item_primary">Tình Trạng:</p>
+                                <p className="story_detail_item m-0">{story.status}</p>
                             </li>
                             <li className="d-flex ">
-                                <p className="m-0"><TagsFill size={24} /></p>
-                                <p class="story_detail_item m-0 item_primary">Thể loại:</p>
-                                <p class="story_detail_item m-0">{storyCategory}</p>
+                                <p className="m-0"><RssFill size={24} /></p>
+                                <p className="story_detail_item m-0 item_primary">Thể loại:</p>
+                                <p className="story_detail_item m-0">{storyCategory}</p>
                             </li>
                             <li className="d-flex ">
                                 <p className="m-0"><EyeFill size={24} /></p>
-                                <p class="story_detail_item m-0 item_primary">Lượt xem:</p>
-                                <p class="story_detail_item m-0">{SplitNumber(parseInt(story.view))}</p>
+                                <p className="story_detail_item m-0 item_primary">Lượt xem:</p>
+                                <p className="story_detail_item m-0">{SplitNumber(parseInt(story.view))}</p>
                             </li>
                             <li className="d-flex ">
-                                <p className="story_detail_item m-0 text-primary">{story.name}<small class="story_detail_item m-0">Xếp hạng: {typeof results === "undefined" ? 0 : results}/5-{rateStories.length} Lượt đánh giá.</small></p>
+                                <p className="story_detail_item m-0 text-primary">{story.name}<small className="story_detail_item m-0">Xếp hạng: {typeof results === "undefined" ? 0 : results}/5-{rateStories.length} Lượt đánh giá.</small></p>
                             </li>
                             <li className="d-flex ">
                                 <FormRate sid={sid} onchangeRateNo={getRateNo} story={story} />
                             </li>
                             <li className="d-flex ">
-                                <Button onClick={(e) => handleFollow(e)} value={followStatus} className={`m-0 p-0 px-3 pt-1 pb-1 mb-2 btn-danger`}>{typeof followStory === "undefined" ? "Theo dõi" : "Bỏ theo dõi"}</Button>
-                                <p class="story_detail_item m-0 text-dark">{SplitNumber(60830 + followQuantity.length)}</p>
-                                <p class="story_detail_item m-0">Người Đã Theo Dõi</p>
+                                {
+                                    user === null ? "" : (<Button onClick={(e) => handleFollow(e)} value={followStatus} className={`m-0 p-0 px-3 pt-1 pb-1 mb-2 btn-danger`}>{typeof followStory !== "undefined" ? Object.keys(followStory).length === 0 ? "Theo dõi" : "Bỏ theo dõi" : "Theo dõi"}</Button>)
+                                }
+                                <p className="story_detail_item m-0 text-dark">{SplitNumber(60830 + followQuantity.length)}</p>
+                                <p className="story_detail_item m-0">Người Đã Theo Dõi</p>
                             </li>
                             <li className="d-flex ">
                                 <p><Button onClick={(e) => handleOnclickRead(e)} className="bg-warning border-0">Đọc từ đầu</Button> <Button onClick={(e) => handleOnclickRead(e, story)} className="bg-warning border-0">Đọc mới nhất</Button></p>
@@ -176,19 +183,24 @@ const StoryDetail = () => {
                     </Col>
                     <Col xs={12}>
                         <Row className="d-flex justify-content-end">
-                            <Col xs={12}>
-                                <ul className="d-flex content_header pb-2 mt-4 border-3 border-bottom border-info">
-                                    <li><FileText color="deepskyblue" size={24} /></li>
-                                    <li className="content_header_detail">NOI DUNG</li>
-                                </ul>
+                            <Col xs={12}> 
+                                <h3 className="fw-normal text-info mt-2 pb-1 d-flex border-3 border-bottom border-info">
+                                    <p className="m-0 ps-4"><FileText size={24} /></p>
+                                    <p className="m-0 lh-base ms-1">Nội Dung</p>
+                                </h3>
                             </Col>
                             <Col xs={12} className={"position-relative"}>
-                                <StoryDescription  sid={sid} story={story}/>
+                                <StoryDescription sid={sid} story={story} />
                             </Col>
                         </Row>
                     </Col>
                     <Col xs={12}>
                         <ListChapter sid={sid} handleOnclickRead={handleOnclickRead} />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col xs={12}>
+                        <FormComment sid={sid}/>
                     </Col>
                 </Row>
             </Col>

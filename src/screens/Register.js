@@ -5,12 +5,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'react-bootstrap-icons';
 import FormGroup from '../components/FormGroup'
 import '../styles/register.css'
+import getParentElement from '../components/getParentElement';
 
 const initFormValue = {
     username: '',
     email: '',
     phoneNumber: '',
-    password: ''
+    password: '',
+    img: ''
 }
 const isEmptyValue = (value) => {
     return value.trim().length === 0
@@ -39,8 +41,7 @@ function Register() {
     const [formValue, setFormValue] = useState(initFormValue)
     const [formError, setFormError] = useState({})
     const [checkExist, setCheckExist] = useState([])
-    const [passwordConfirm, setPasswordConfirm] = useState({})
-    const [phoneNumberExist, setPhoneNumberExist] = useState({})
+    const [passwordConfirm, setPasswordConfirm] = useState({}) 
     const header = { "content-type": "application/json", }
     const validateForm = (parentElement, e) => {
         const formErrorMessage = parentElement.querySelector('.form-message')
@@ -98,7 +99,7 @@ function Register() {
     }
     const handleOnChange = (e) => {
         const { value, name } = e.target
-        if (name !== 'active' && name !== 'passwordConfirm') {
+        if (name !== 'active' && name !== 'passwordConfirm' && name !== 'img') {
             setFormValue({
                 ...formValue,
                 [name]: value
@@ -108,17 +109,7 @@ function Register() {
     const handleOnChangePasswordConfirm = (e) => {
         setPasswordConfirm(e.target.value)
     }
-    const getParentElement = (element, formGroup) => {
-        let parentElement
-        while (element.parentElement) {
-            if (element.parentElement.matches(formGroup)) {
-                parentElement = element.parentElement
-                break
-            }
-            element = element.parentElement
-        }
-        return parentElement
-    }
+    
     const handleOnBlur = (e) => {
         validateForm(getParentElement(e.target, ".form-group_register"), e.target)
     }

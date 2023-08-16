@@ -22,7 +22,7 @@ const SearchStory = () => {
     }
     return (
         <DefaultTemplate>
-            <Row className='d-flex justify-content-center'>
+            <Row className='d-flex justify-content-center mt-4'>
                 <Col xs={10}>
                     <Row>
                         <Col xs={8}> 

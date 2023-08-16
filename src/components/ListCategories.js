@@ -1,9 +1,23 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import { useLocation } from "react-router-dom";
 
-const ListCategories = ({handlecategory}) => {
+const ListCategories = ({ handlecategory }) => {
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const category = searchParams.get("category");
     const [categories, setCategories] = useState([])
-    const [categoryId, setCategoryId] = useState("")
+    const [categoryId, setCategoryId] = useState('0')
+    console.log(category);
+    useEffect(() => {
+        if (category !== null) {
+            setCategoryId(parseInt(category))
+            handlecategory(parseInt(category))
+        } else {
+            setCategoryId('0')
+            handlecategory('0')
+        }
+    }, [category])
     useEffect(() => {
         fetch("http://localhost:9999/Categories")
             .then(res => res.json())
@@ -12,6 +26,8 @@ const ListCategories = ({handlecategory}) => {
     const handleOnclickCategory = (e, id) => {
         setCategoryId(id)
         handlecategory(id)
+        const newURL = window.location.href.replace(`?category=${category}`, "");
+        window.history.replaceState({}, "", newURL);
     }
     return (
         <Row>
@@ -27,7 +43,7 @@ const ListCategories = ({handlecategory}) => {
                                     categories.map((category, index) => (
                                         parseInt(categories.length / 2) > index ?
                                             (
-                                                <li onClick={(e)=>handleOnclickCategory(e, category.id)} className={`px-3 pt-2 pb-2 border-bottom fw-normal cursor-pointer custom-cursor ${categoryId===category.id? "fw-bold text-info": ""}`} key={category.id}>{category.name}</li>
+                                                <li onClick={(e) => handleOnclickCategory(e, category.id)} className={`px-3 pt-2 pb-2 border-bottom cursor-pointer custom-cursor name_chapter ${categoryId === category.id ? "fw-bold text-info" : ""}`} key={category.id}>{category.name}</li>
                                             ) : ""
                                     ))
                                 }
@@ -39,7 +55,7 @@ const ListCategories = ({handlecategory}) => {
                                     categories.map((category, index) => (
                                         parseInt(categories.length / 2) <= index && parseInt(categories.length / 2) * 2 > index ?
                                             (
-                                                <li onClick={(e)=>handleOnclickCategory(e, category.id)} className={`px-3 pt-2 pb-2 border-bottom fw-normal cursor-pointer custom-cursor ${categoryId===category.id? "fw-bold text-info": ""}`} key={category.id}>{category.name}</li>
+                                                <li onClick={(e) => handleOnclickCategory(e, category.id)} className={`px-3 pt-2 pb-2 border-bottom fw-normal cursor-pointer custom-cursor name_chapter ${categoryId === category.id ? "fw-bold text-info" : ""}`} key={category.id}>{category.name}</li>
                                             ) : ""
                                     ))
                                 }

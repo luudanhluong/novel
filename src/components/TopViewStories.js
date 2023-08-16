@@ -59,7 +59,7 @@ const TopViewStories = () => {
                                                             }</p>
                                                         </Col>
                                                         <Col xs={5}>
-                                                            <p className="m-0 top_view_item d-flex"><p className="m-0 me-1"><EyeFill /></p><p className="m-0">{CountView(story.view)}</p></p>
+                                                            <p className="m-0 top_view_item d-flex"><span className="m-0 me-1"><EyeFill /></span><span className="m-0">{CountView(story.view)}</span></p>
                                                         </Col>
                                                     </Row>
                                                 </li>

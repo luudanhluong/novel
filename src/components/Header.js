@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Container, Nav, Navbar, NavDropdown, Row, Col } from "react-bootstrap";
-import { EyeFill, HouseExclamationFill, HouseFill, Search } from "react-bootstrap-icons";
-import { useNavigate, Link } from "react-router-dom";
+import { Form, Container, Nav, Navbar, NavDropdown, Row, Col, Image } from "react-bootstrap";
+import { EyeFill, HouseFill } from "react-bootstrap-icons";
+import { useNavigate, Link, NavLink } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate('')
@@ -36,13 +36,17 @@ const Header = () => {
   };
   const handleOnclickTop = (e, id) => {
     navigate(`/detail/${id}`);
+    setSearchStory("")
+  }
+  const handleSearchCat = (id) => {
+    navigate(`/search?category=${id}`);
   }
   return (
     <>
-      <Container className="mt-2 mb-2">
+      <Container className="">
         <Row>
           <Col xs={4}></Col>
-          <Col xs={4} className="position-relative">
+          <Col xs={4} className="position-relative mt-2">
             <Form.Group className="d-flex">
               <Form.Control
                 type="search"
@@ -72,7 +76,7 @@ const Header = () => {
                                     <p className="m-0 top_chapter_item">Chương {chapteres.length}</p>
                                   </Col>
                                   <Col xs={5}>
-                                    <p className="m-0 top_view_item d-flex"><p className="m-0 me-1"><EyeFill /></p><p className="m-0">{story.view}</p></p>
+                                    <p className="m-0 top_view_item d-flex"><span className="m-0 me-1"><EyeFill /></span><span className="m-0">{story.view}</span></p>
                                   </Col>
                                 </Row>
                               </li>
@@ -108,22 +112,26 @@ const Header = () => {
                   user === null ?
                     (
                       <Nav>
-                        <Nav.Link className="fw-bold" href="/login">Đăng nhập</Nav.Link>
-                        <Nav.Link className="fw-bold" eventKey={2} href="/register">Đăng ký</Nav.Link>
+                        <Link className="fw-bold" to="/login">Đăng nhập</Link>
+                        <Link className="fw-bold" eventKey={2} to="/register">Đăng ký</Link>
                       </Nav>
                     ) :
                     (
-                      <NavDropdown className="fw-bold" title={`${user.username}`} id="basic-nav-dropdown">
-                        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.2">
-                          Another action
-                        </NavDropdown.Item>
-                        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                        <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.4">
-                          Logout
-                        </NavDropdown.Item>
-                      </NavDropdown>
+                      <>
+                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+
+                        <NavDropdown className="fw-bold" title={<><Image className="rounded-5 border me-1" width={40} src={`${typeof user.img === "undefined" ? "https://cdn.landesa.org/wp-content/uploads/default-user-image.png" : user.img}`} alt={user.username} /> <span>{user.username}</span></>} id="basic-nav-dropdown">
+                          <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                          <NavDropdown.Item href="#action/3.2">
+                            Another action
+                          </NavDropdown.Item>
+                          <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                          <NavDropdown.Divider />
+                          <NavDropdown.Item href="#action/3.4">
+                            Logout
+                          </NavDropdown.Item>
+                        </NavDropdown>
+                      </>
                     )
                 }
               </Navbar.Collapse>
@@ -135,9 +143,10 @@ const Header = () => {
         <Container className="">
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="">
-              <Nav.Link href="/"><HouseFill className="pb-1" size={19} /><span className="ms-1 mt-1 fw-bold">Trang Chủ</span></Nav.Link>
-              <Nav.Link href="#pricing"></Nav.Link>
+            <Nav>
+              <Nav.Link to="/"><HouseFill className="pb-1" size={19} /><span className="ms-1 mt-1 fw-bold">Trang Chủ</span></Nav.Link>
+            </Nav>
+            <Nav className=""> 
               <NavDropdown title="Thể loại" id="collasible-nav-dropdown" className="fw-bold" >
                 <Row>
                   <Col xs={4} className="">
@@ -146,7 +155,7 @@ const Header = () => {
                         categories.map((category, index) => (
                           parseInt(categories.length / 3) > index ?
                             (
-                              <li key={category.id} className="px-3 pt-1 pb-1 fw-normal"><Link to={"/"} className="text-decoration-none text-dark">{category.name}</Link> </li>
+                              <li key={category.id} onClick={() => handleSearchCat(category.id)} className="px-3 pt-1 pb-1 fw-normal name_chapter"><Link to={"/"} className="text-decoration-none text-dark">{category.name}</Link> </li>
                             ) : ""
                         ))
                       }
@@ -158,7 +167,7 @@ const Header = () => {
                         categories.map((category, index) => (
                           parseInt(categories.length / 3) <= index && index < parseInt(categories.length / 3) * 2 ?
                             (
-                              <li key={category.id} className="px-3 pt-1 pb-1 fw-normal"><Link to={"/"} className="text-decoration-none text-dảktext-decoration-none text-dark">{category.name}</Link> </li>
+                              <li key={category.id} onClick={() => handleSearchCat(category.id)} className="px-3 pt-1 pb-1 fw-normal name_chapter"><Link to={"/"} className="text-decoration-none text-dảktext-decoration-none text-dark">{category.name}</Link> </li>
                             ) : ""
                         ))
                       }
@@ -170,7 +179,7 @@ const Header = () => {
                         categories.map((category, index) => (
                           parseInt(categories.length / 3) * 2 <= index ?
                             (
-                              <li key={category.id} className="px-3 pt-1 pb-1 fw-normal"><Link to={"/"} className="text-decoration-none text-dảktext-decoration-none text-dark">{category.name}</Link> </li>
+                              <li key={category.id} onClick={() => handleSearchCat(category.id)} className="px-3 pt-1 pb-1 fw-normal name_chapter"><Link to={"/"} className="text-decoration-none text-dảktext-decoration-none text-dark">{category.name}</Link> </li>
                             ) : ""
                         ))
                       }
@@ -180,7 +189,7 @@ const Header = () => {
               </NavDropdown>
             </Nav>
             <Nav className="me-auto">
-              <Nav.Link href="/search"><span className="ms-1 mt-1 fw-bold">Tìm Truyện</span></Nav.Link>
+              <Nav.Link to="/search"><span className="ms-1 mt-1 fw-bold">Tìm Truyện</span></Nav.Link>
             </Nav>
 
           </Navbar.Collapse>

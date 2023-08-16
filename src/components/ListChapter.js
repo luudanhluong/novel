@@ -23,11 +23,11 @@ const ListChapter = ({ sid, handleOnclickRead }) => {
     }, [sid])
     return (
         <Row>
-            <Col xs={12}>
-                <ul className="d-flex content_header mt-2 pb-2 border-3 border-bottom border-info">
-                    <li><List color="deepskyblue" size={24} /></li>
-                    <li className="content_header_detail">DANH SACH CHUONG</li>
-                </ul>
+            <Col xs={12}> 
+                <h3 className="fw-normal text-info mt-2 pb-1 d-flex border-3 border-bottom border-info">
+                    <p className="m-0 ps-4"><List size={28} /></p>
+                    <p className="m-0 lh-base ms-1">Danh Sách Chương</p>
+                </h3>
             </Col>
             {
                 chapteres.length > 0 ?
@@ -58,7 +58,7 @@ const ListChapter = ({ sid, handleOnclickRead }) => {
                                                                             </p>
                                                                         </Col>
                                                                         <Col xs={4}>
-                                                                            <p className="m-0 time_update">{CalTime(chapter.date)}</p>
+                                                                            <p className="m-0 color_grey fs-14">{CalTime(chapter.date)}</p>
                                                                         </Col>
                                                                     </Row>
                                                                 </li>
