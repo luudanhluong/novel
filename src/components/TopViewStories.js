@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { EyeFill } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,7 @@ import CountView from "./CountView";
 const TopViewStories = () => {
     const navigate = useNavigate('')
     const [stories, setStories] = useState([])
-    const [chapteres, setChapteres] = useState([])
+    const [chapteres, setChapteres] = useState([]) 
     useEffect(() => {
         fetch("http://localhost:9999/chapter")
             .then(res => res.json())
@@ -76,4 +76,4 @@ const TopViewStories = () => {
     );
 }
 
-export default TopViewStories;
+export default memo(TopViewStories);

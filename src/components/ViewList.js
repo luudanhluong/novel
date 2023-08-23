@@ -18,22 +18,22 @@ const ViewList = ({ sort, categoryValue, statusValue }) => {
             .then(data => setStories(data.filter(d => {
                 if (categoryId === '0' || typeof categoryValue === "undefined" || statusId === "0") {
                     if (statusId === "1") {
-                        return true
+                        return true && d.active === 1;
                     } else if (statusId === "2") {
-                        return d.status === "Đã hoàn thành"
+                        return d.status === "Đã hoàn thành" && d.active === 1;
                     } else if (statusId === "3") {
-                        return d.status === "Đang cập nhật"
+                        return d.status === "Đang cập nhật" && d.active === 1;
                     }
-                    return true
+                    return true && d.active === 1;
                 } else {
                     if (statusId === "1") {
-                        return true && d.categoryId.includes(categoryId)
+                        return true && d.categoryId.includes(categoryId) && d.active === 1;
                     } else if (statusId === "2") {
-                        return d.status === "Đã hoàn thành" && d.categoryId.includes(categoryId)
+                        return d.status === "Đã hoàn thành" && d.categoryId.includes(categoryId) && d.active === 1;
                     } else if (statusId === "3") {
-                        return d.status === "Đang cập nhật" && d.categoryId.includes(categoryId)
+                        return d.status === "Đang cập nhật" && d.categoryId.includes(categoryId) && d.active === 1;
                     }
-                    return d.categoryId.includes(categoryId)
+                    return d.categoryId.includes(categoryId) && d.active === 1;
                 }
             })))
     }, [categoryId, categoryValue, statusId])

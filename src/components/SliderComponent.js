@@ -16,11 +16,10 @@ const SliderComponent = () => {
         fetch("http://localhost:9999/Stories")
             .then(res => res.json())
             .then(data => setStories(data.sort((a, b) => new Date(b['updateDate']) - new Date(a['updateDate']))))
-    }, [])
+    }, []);
     stories.map(story => {
         story.chapters = chapteres.filter(chapter => chapter.storyId === story.id).slice(0, 1)
-    })
-    console.log(stories);
+    });
     const settings = {
         speed: 500,
         autoplaySpeed: 2500,
@@ -67,7 +66,8 @@ const SliderComponent = () => {
                 <Slider {...settings}>
                     {
                         stories.map((d, i) => (
-                            i <= 5 ? <Card key={d.id} className='card_slider'>
+                            d.active === 1 && i <= 6 ? 
+                            <Card key={d.id} className='card_slider'>
                                 <Card.Body className='body_card_slider position-relative overflow-hidden'>
                                     <Link to={`/detail/${d.id}`}>
                                         <Card.Img className="img_card_slide" src={d.image} alt={d.name} />

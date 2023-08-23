@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { ToastContainer } from 'react-toastify';
 import './index.css';
 import App from './App';
+import store from './app/store';
+import {Provider} from "react-redux"
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,8 +14,10 @@ import "./styles/slick-theme.css";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App /> 
+   <Provider store={store}>
+   <App /> 
     <ToastContainer />
+   </Provider>
   </React.StrictMode>
 );
 

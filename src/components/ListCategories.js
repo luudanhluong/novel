@@ -7,8 +7,7 @@ const ListCategories = ({ handlecategory }) => {
     const searchParams = new URLSearchParams(location.search);
     const category = searchParams.get("category");
     const [categories, setCategories] = useState([])
-    const [categoryId, setCategoryId] = useState('0')
-    console.log(category);
+    const [categoryId, setCategoryId] = useState('0') 
     useEffect(() => {
         if (category !== null) {
             setCategoryId(parseInt(category))

@@ -24,7 +24,7 @@ const Header = () => {
   useEffect(() => {
     fetch("http://localhost:9999/Stories")
       .then(res => res.json())
-      .then(data => setStories(data.filter(d => d.name.toUpperCase().startsWith(SearchStory.toUpperCase()))))
+      .then(data => setStories(data.filter(d => SearchStory.length>0 ? d.name.toUpperCase().startsWith(SearchStory.toUpperCase()): "")))
   }, [SearchStory])
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("user")));
@@ -40,7 +40,7 @@ const Header = () => {
   }
   const handleSearchCat = (id) => {
     navigate(`/search?category=${id}`);
-  }
+  } 
   return (
     <>
       <Container className="">
@@ -57,9 +57,9 @@ const Header = () => {
                 onChange={(e) => setSearchStory(e.target.value)}
               />
             </Form.Group>
-            <ul style={{ zIndex: 100000 }} className={`list-unstyled m-0 p-0 position-absolute border form-control ${stories.length === 0 ? "d-none" : ""} ${SearchStory.length === 0 ? "d-none" : ""}`}>
+            <ul style={{ zIndex: 100000 }} className={`list-unstyled m-0 p-0 position-absolute border form-control ${stories.length > 0 ? "" : "d-none"} ${SearchStory.length >= 1 ? "" : "d-none"}`}>
               {
-                stories.map((story, index) => (
+                stories.map((story, index) => index<5?(
                   <li className="px-3" key={story.id}>
                     <Row key={story.id} className={""}>
                       <Col xs={12}>
@@ -101,7 +101,7 @@ const Header = () => {
                       </Col>
                     </Row>
                   </li>
-                ))
+                ):"")
               }
             </ul>
           </Col>
@@ -112,22 +112,24 @@ const Header = () => {
                   user === null ?
                     (
                       <Nav>
-                        <Link className="fw-bold" to="/login">Đăng nhập</Link>
-                        <Link className="fw-bold" eventKey={2} to="/register">Đăng ký</Link>
+                        <Nav.Link as={Link} className="fw-bold" to="/login">Đăng nhập</Nav.Link>
+                        <Nav.Link as={Link} className="fw-bold" eventKey={2} to="/register">Đăng ký</Nav.Link>
                       </Nav>
                     ) :
                     (
                       <>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
-                        <NavDropdown className="fw-bold" title={<><Image className="rounded-5 border me-1" width={40} src={`${typeof user.img === "undefined" ? "https://cdn.landesa.org/wp-content/uploads/default-user-image.png" : user.img}`} alt={user.username} /> <span>{user.username}</span></>} id="basic-nav-dropdown">
+                        <NavDropdown className="fw-bold" title={<><Image className="rounded-5 border me-1" width={40} src={`${user.img === "" ? "https://cdn.landesa.org/wp-content/uploads/default-user-image.png" : user.img}`} alt={user.username} /> <span>{user.username}</span></>} id="basic-nav-dropdown">
+                          <NavDropdown.Item as={Link} to="/author/addeditstory">Tạo truyện mới</NavDropdown.Item> 
+                          {user.role === 2 && (<NavDropdown.Item as={Link} to="/author/mystory">Truyện của tôi</NavDropdown.Item> )}
                           <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                           <NavDropdown.Item href="#action/3.2">
                             Another action
                           </NavDropdown.Item>
                           <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
                           <NavDropdown.Divider />
-                          <NavDropdown.Item href="#action/3.4">
+                          <NavDropdown.Item onClick={handleLogout}>
                             Logout
                           </NavDropdown.Item>
                         </NavDropdown>
@@ -144,7 +146,7 @@ const Header = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav>
-              <Nav.Link to="/"><HouseFill className="pb-1" size={19} /><span className="ms-1 mt-1 fw-bold">Trang Chủ</span></Nav.Link>
+              <Nav.Link as={Link} to="/"><HouseFill className="pb-1" size={19} /><span className="ms-1 mt-1 fw-bold">Trang Chủ</span></Nav.Link>
             </Nav>
             <Nav className=""> 
               <NavDropdown title="Thể loại" id="collasible-nav-dropdown" className="fw-bold" >
@@ -189,7 +191,7 @@ const Header = () => {
               </NavDropdown>
             </Nav>
             <Nav className="me-auto">
-              <Nav.Link to="/search"><span className="ms-1 mt-1 fw-bold">Tìm Truyện</span></Nav.Link>
+            <Nav.Link as={Link}  to="/search"><span className="fw-bold">Tìm Truyện</span></Nav.Link>
             </Nav>
 
           </Navbar.Collapse>

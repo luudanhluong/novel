@@ -15,8 +15,9 @@ const initFormValue = {
     passwordConfirm: ''
 }
 
-const isEmptyValue = (value) => {
-    return value.trim().length === 0
+const isEmptyValue = (value) => { 
+    const regex = /^[\s]*$/; 
+    return regex.test(value);
 }
 
 const isPhoneNumber = (value) => {
@@ -121,22 +122,22 @@ function Login() {
         fetch('http://localhost:9999/Users')
             .then(res => res.json())
             .then(customers => setAcountExist(customers.some((c) => {
-                if (c.phoneNumber === inputPhoneNumber.current.value && c.password === inputPassword.current.value) {
+                if (c.phoneNumber === inputPhoneNumber.current && c.password === inputPassword.current) {
                     setCustomer(c)
                     return true
-                } else if (c.phoneNumber === inputPhoneNumber.current.value && c.password === SHA256(password).toString()){
+                } else if (c.phoneNumber === inputPhoneNumber.current && c.password === SHA256(password).toString()){
                     setCustomer(c)
                     return true
                 }
                     return false
             })))
-    }, [inputPassword.current.value, inputPhoneNumber.current.value])
+    }, [inputPassword.current, inputPhoneNumber.current])
     const handleOnSubmit = (e) => {
         e.preventDefault()
-        if (!inputPhoneNumber.current.value) {
+        if (!inputPhoneNumber.current) {
             validateForm(getParentElement(document.getElementById('phoneNumber')), document.getElementById('phoneNumber'))
         }
-        if (!inputPassword.current.value) {
+        if (!inputPassword.current) {
             validateForm(getParentElement(document.getElementById('password')), document.getElementById('password'))
         }
         if (Object.keys(formError).length === 0) {

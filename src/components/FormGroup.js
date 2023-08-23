@@ -1,6 +1,10 @@
+import { useImperativeHandle, useRef } from 'react'
 import { Col, Form, Row } from 'react-bootstrap'
 
-export default function FormGroup({ md, inputRef, type = 'text', label, placeholder = '', name, value, onBlur, onFocus, onChange }) {
+
+export default function FormGroup({ md, inputRef="", type = 'text', label, placeholder = '', name="", value="", onBlur=()=>{}, onFocus=()=>{}, onChange=()=>{} }) {
+    const input = useRef()
+    useImperativeHandle(inputRef ,() => value)
     return (
         <Row>
             <Col md={md}>

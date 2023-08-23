@@ -40,8 +40,7 @@ const ChapterContent = () => {
     }
     const handleMoveNext = (e) => {
         setChapter(parseInt(chapter) + 1)
-    }
-    console.log(chapterContent);
+    } 
     let count = 0
     return (
         <DefaultTemplate>
@@ -73,7 +72,7 @@ const ChapterContent = () => {
                                         <Form.Select className="form-control" value={chapter} onChange={(e) => handleOnchangeChapter(e)}>
                                             {
                                                 chapteres.map((chapter) => (
-                                                    <option value={chapter.chapterNo}>Chương {chapter.chapterNo}</option>
+                                                    <option value={chapter.chapterNo} key={chapter.id} >Chương {chapter.chapterNo}</option>
                                                 ))
                                             }
                                         </Form.Select>
@@ -89,8 +88,8 @@ const ChapterContent = () => {
                                 {
                                     typeof chapterContent !== "undefined" && Object.keys(chapterContent).length !== 0 ?
                                         (
-                                            chapterContent.paragraph.map((p) => (
-                                                <><br key={count++} />{p.replaceAll(/'/g, '"')}<br key={count++} /></>
+                                            chapterContent.paragraph.map((p, i) => (
+                                                <span key={i+=2}><br/>{p.replaceAll(/'/g, '"')}<br/></span>
                                             ))
                                         ) : ""
                                 }

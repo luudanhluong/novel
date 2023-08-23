@@ -11,31 +11,22 @@ import Time from "./UpdateTime";
 import StoryDescription from "./StoryDescription";
 import FormComment from "./FormComment";
 import { DELETE, header, POST } from "./Type";
+import category from "./common/utilities/category";
+import userLogedIn from "./user/userLogedIn";
+import { useSelector } from "react-redux";
+import rateAvg from "./common/utilities/rateAvg";
 const StoryDetail = () => {
     const { sid } = useParams('')
     const navigate = useNavigate('')
-    const [story, setStory] = useState({})
-    const [categories, setCategories] = useState([])
+    const [story, setStory] = useState({}) 
     const [rateStories, setRateStories] = useState([])
     const [chapteres, setChapteres] = useState([])
     const [followQuantity, setFollowQuantity] = useState([])
     const [followStory, setFollowStory] = useState({})
     const [rateNo, setRateNo] = useState(0)
     const [followStatus, setFollowStatus] = useState(0)
-    const user = JSON.parse(localStorage.getItem("user")) 
-    let storyCategory = "";
-    if (typeof story.categoryId !== 'undefined') {
-        categories.map(category => {
-            return story.categoryId.map((s, i) => {
-                if (category.id === s && i < story.categoryId.length - 1) {
-                    storyCategory += category.name + ", "
-                } else if (category.id === s && i < story.categoryId.length) {
-                    storyCategory += category.name
-                }
-                return storyCategory
-            })
-        })
-    }
+    const listCategories = useSelector(state => state.listCategory.data);
+    const user = userLogedIn()
     let results
     if (rateStories.length >= 1) {
         let totalRate = rateStories.reduce((accumulator, rateStory) => {
@@ -69,11 +60,6 @@ const StoryDetail = () => {
             .then(res => res.json())
             .then(data => setStory(data))
     }, [sid])
-    useEffect(() => {
-        fetch("http://localhost:9999/Categories")
-            .then(res => res.json())
-            .then(data => setCategories(data))
-    }, [])
     useEffect(() => {
         fetch("http://localhost:9999/followStory")
             .then(res => res.json())
@@ -156,7 +142,7 @@ const StoryDetail = () => {
                             <li className="d-flex ">
                                 <p className="m-0"><RssFill size={24} /></p>
                                 <p className="story_detail_item m-0 item_primary">Thể loại:</p>
-                                <p className="story_detail_item m-0">{storyCategory}</p>
+                                <p className="story_detail_item m-0">{category(listCategories, story)}</p>
                             </li>
                             <li className="d-flex ">
                                 <p className="m-0"><EyeFill size={24} /></p>
@@ -164,7 +150,7 @@ const StoryDetail = () => {
                                 <p className="story_detail_item m-0">{SplitNumber(parseInt(story.view))}</p>
                             </li>
                             <li className="d-flex ">
-                                <p className="story_detail_item m-0 text-primary">{story.name}<small className="story_detail_item m-0">Xếp hạng: {typeof results === "undefined" ? 0 : results}/5-{rateStories.length} Lượt đánh giá.</small></p>
+                                <p className="story_detail_item m-0 text-primary">{story.name}<small className="story_detail_item m-0">Xếp hạng: {rateAvg(rateStories)}/5-{rateStories.length} Lượt đánh giá.</small></p>
                             </li>
                             <li className="d-flex ">
                                 <FormRate sid={sid} onchangeRateNo={getRateNo} story={story} />

@@ -14,8 +14,9 @@ const initFormValue = {
     password: '',
     img: ''
 }
-const isEmptyValue = (value) => {
-    return value.trim().length === 0
+const isEmptyValue = (value) => { 
+    const regex = /^[\s]*$/; 
+    return regex.test(value);
 }
 
 const isEmail = (value) => {
@@ -35,9 +36,9 @@ function Register() {
     const inputUsername = useRef(null)
     const inputEmail = useRef("")
     const inputPhoneNumber = useRef("")
-    const inputPassword = useRef(null)
+    const inputPassword = useRef(null) 
     const inputPasswordConfirm = useRef(null)
-    const inputCheck = useRef(null)
+    const inputCheck = useRef(null) 
     const [formValue, setFormValue] = useState(initFormValue)
     const [formError, setFormError] = useState({})
     const [checkExist, setCheckExist] = useState([])
@@ -58,10 +59,10 @@ function Register() {
                 error['password'] = 'Wrong format contain at least uppercase, lowercase, digit and no specical character.'
             }
         }
-        if (isEmptyValue(inputPasswordConfirm.current.value)) {
+        if (isEmptyValue(inputPasswordConfirm.current)) {
             error['passwordConfirm'] = 'Password comfirm can not is empty'
         } else {
-            if (inputPasswordConfirm.current.value !== formValue.password) {
+            if (inputPasswordConfirm.current !== formValue.password) {
                 error['passwordConfirm'] = 'Password confirm is not correct'
             }
         }
@@ -125,24 +126,24 @@ function Register() {
     }, [])
     let emailExist = false
     let phoneExist = false
-    checkExist.map(check => check.email === inputEmail.current.value ? emailExist = true : false)
-    checkExist.map(check => check.phoneNumber === inputPhoneNumber.current.value ? phoneExist = true : false)  
+    checkExist.map(check => check.email === inputEmail.current ? emailExist = true : false)
+    checkExist.map(check => check.phoneNumber === inputPhoneNumber.current ? phoneExist = true : false)  
     var count = 0
     const handleOnSubmit = (e) => {
         e.preventDefault()
-        if (!inputUsername.current.value) {
+        if (!inputUsername.current) {
             validateForm(getParentElement(document.getElementById('username'), ".form-group_register"), document.getElementById('username'))
         }
-        if (!inputEmail.current.value) {
+        if (!inputEmail.current) {
             validateForm(getParentElement(document.getElementById('email'), ".form-group_register"), document.getElementById('email'))
         }
-        if (!inputPhoneNumber.current.value) {
+        if (!inputPhoneNumber.current) {
             validateForm(getParentElement(document.getElementById('phoneNumber'), ".form-group_register"), document.getElementById('phoneNumber'))
         }
-        if (!inputPassword.current.value) {
+        if (!inputPassword.current) {
             validateForm(getParentElement(document.getElementById('password'), ".form-group_register"), document.getElementById('password'))
         }
-        if (!inputPasswordConfirm.current.value) {
+        if (!inputPasswordConfirm.current) {
             validateForm(getParentElement(document.getElementById('passwordConfirm'), ".form-group_register"), document.getElementById('passwordConfirm'))
         }
         if (!inputCheck.current.checked) {
