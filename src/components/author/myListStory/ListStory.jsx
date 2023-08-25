@@ -22,7 +22,7 @@ const ListSotry = (props) => {
                     <th>Lượt đọc</th>
                     <th>Theo dõi</th>
                     <th>Đánh giá</th>
-                    <th>Trạng thái</th>
+                    <th>Hoàn thành</th>
                     <th>Kích hoạt</th>
                     <th colSpan={3}>Hành động</th>
                 </tr>

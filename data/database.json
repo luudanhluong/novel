@@ -581,6 +581,7 @@
       "userId": 3,
       "feedback": "scscsc",
       "timeFeedback": "2023-08-22T16:30:43.434Z",
+      "type": "normal",
       "id": 1
     },
     {
@@ -588,6 +589,7 @@
       "userId": 3,
       "feedback": "scscscscs",
       "timeFeedback": "2023-08-22T16:31:12.060Z",
+      "type": "normal",
       "id": 2
     },
     {
@@ -595,6 +597,7 @@
       "userId": 3,
       "feedback": "scscs",
       "timeFeedback": "2023-08-22T16:31:30.571Z",
+      "type": "reject",
       "id": 3
     },
     {
@@ -602,6 +605,7 @@
       "userId": 1,
       "feedback": "scscsc",
       "timeFeedback": "2023-08-22T16:33:23.255Z",
+      "type": "normal",
       "id": 4
     },
     {
@@ -609,6 +613,7 @@
       "userId": 3,
       "feedback": "scscs",
       "timeFeedback": "2023-08-22T16:33:26.219Z",
+      "type": "reject",
       "id": 5
     },
     {
@@ -616,6 +621,7 @@
       "userId": 3,
       "feedback": "scsc",
       "timeFeedback": "2023-08-22T16:33:40.794Z",
+      "type": "normal",
       "id": 6
     },
     {
@@ -623,6 +629,7 @@
       "userId": 3,
       "feedback": "cccccccccccccccccccccccccccccccccccccccccccccccc",
       "timeFeedback": "2023-08-22T16:33:49.072Z",
+      "type": "normal",
       "id": 7
     },
     {
@@ -630,6 +637,7 @@
       "userId": 3,
       "feedback": "scscs",
       "timeFeedback": "2023-08-22T16:37:38.705Z",
+      "type": "normal",
       "id": 8
     },
     {
@@ -637,6 +645,7 @@
       "userId": 3,
       "feedback": "scaaaaaaaaaaaaaaa caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacccccccccccccccccccc",
       "timeFeedback": "2023-08-22T16:39:00.228Z",
+      "type": "normal",
       "id": 9
     },
     {
@@ -644,6 +653,7 @@
       "userId": 3,
       "feedback": "scscscscaaaaaaaaaaaaaaa caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacccccccccccccccccccc",
       "timeFeedback": "2023-08-22T16:39:37.797Z",
+      "type": "normal",
       "id": 10
     },
     {
@@ -651,6 +661,7 @@
       "userId": 3,
       "feedback": "scaaaaaaaaaaaaaaa caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacccccccccccccccccccc",
       "timeFeedback": "2023-08-22T16:39:39.587Z",
+      "type": "normal",
       "id": 11
     },
     {
@@ -658,6 +669,7 @@
       "userId": 1,
       "feedback": "scaaaaaaaaaaaaaaa caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacccccccccccccccccccc",
       "timeFeedback": "2023-08-22T16:39:40.995Z",
+      "type": "normal",
       "id": 12
     },
     {
@@ -665,14 +677,32 @@
       "userId": 2,
       "feedback": "scaaaaaaaaaaaaaaa caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacccccccccccccccccccc",
       "timeFeedback": "2023-08-22T16:39:42.334Z",
+      "type": "normal",
       "id": 13
     },
     {
       "storyId": 9,
       "userId": 3,
-      "feedback": "LO",
-      "timeFeedback": "2023-08-23T17:33:41.289Z",
+      "feedback": "scscsc",
+      "timeFeedback": "2023-08-25T09:10:04.890Z",
+      "type": "normal",
       "id": 14
+    },
+    {
+      "storyId": 9,
+      "userId": 3,
+      "feedback": "sc",
+      "timeFeedback": "2023-08-25T10:39:16.349Z",
+      "type": "normal",
+      "id": 15
+    },
+    {
+      "storyId": 9,
+      "userId": 3,
+      "feedback": "dvdvdvd",
+      "timeFeedback": "2023-08-25T10:39:33.262Z",
+      "type": "normal",
+      "id": 16
     }
   ]
 }

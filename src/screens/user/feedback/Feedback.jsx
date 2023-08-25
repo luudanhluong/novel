@@ -4,7 +4,7 @@ import { ArrowLeft } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import CalTime from "../../../components/CalTime";
-import { fetchFeedbackSuccess, postFeedback } from "../../../components/common/api/dataFeedback/dataSlice";
+import { deleteFeedback, fetchFeedbackSuccess, postFeedback } from "../../../components/common/api/dataFeedback/dataSlice";
 import { fetchUserSuccess } from "../../../components/common/api/dataUser/dataSlice";
 import InputField from "../../../components/common/custom-fileds/inputField/inputFiled";
 import userLogedIn from "../../../components/user/userLogedIn";
@@ -23,7 +23,7 @@ const Feedback = () => {
     const targetDivRef = useRef(null);
     const handleInputChange = (event) => {
         const action = setValue(event.target.value);
-        dispatch(action);
+        dispatch(action); 
     };
     useEffect(() => {
         fetch("http://localhost:9999/feedback")
@@ -47,91 +47,90 @@ const Feedback = () => {
             userId: user.id,
             feedback: value,
             timeFeedback: "",
+            type: "normal"
         }
         dispatch(postFeedback(feedback));
         dispatch(setValue(""))
         inputValue.current.focus();
     }
-    // useEffect(() => {
-        // Gắn sự kiện scroll khi component được mount
-        // const ul = document.querySelector(".box-chat");
-        // if(ul!==null){
-        // ul.addEventListener('scroll', ()=> {
-        //     const currentPosition = window.pageYOffset;
-        //     if (currentPosition === 0) {
-        //         setScrollValue(scrollValue+10);
-        //     }
-        //     console.log(currentPosition);
-        // }); }
-    // }, []);
-    // console.log(scrollValue);
+    const handleScroll = (event) => {
+        if (event.target.scrollTop === 0) {
+            dispatch(setScrollValue(scrollValue + 10));
+            if (scrollValue < listFeedback.length) {
+                event.target.scrollTop = 100;
+            }
+        } 
+    }
     useEffect(() => {
-        if (targetDivRef.current) {
-            targetDivRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
-        }
-    }, [listFeedback]);
+        dispatch(setScrollValue(20));
+    }, [window.location]);
     const ListFeedbackCopy = [...listFeedback];
     ListFeedbackCopy.sort((a, b) => new Date(b["timeFeedback"]) - new Date(a["timeFeedback"]));
     const newListFeedback = ListFeedbackCopy.map(fb => ({ ...fb, userImg: "", username: "" }));
-    const newListFeedback_10 = newListFeedback.slice(0, scrollValue);
-    newListFeedback_10.sort((a, b) => new Date(a["timeFeedback"]) - new Date(b["timeFeedback"]));
-    useEffect(() => {
+    const newListFeedback_20 = newListFeedback.slice(0, scrollValue);
+    newListFeedback_20.sort((a, b) => new Date(a["timeFeedback"]) - new Date(b["timeFeedback"]));
+    useEffect(() => {  
+        if (targetDivRef.current) {
+            targetDivRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+        }
+    }, [targetDivRef.current]);
+    useMemo(() => {
         listUser.forEach(u => {
-            newListFeedback_10.forEach(fb => {
+            newListFeedback_20.forEach(fb => {
                 if (fb.userId === u.id) {
-                    fb.userImg = u.img;
+                    fb.userImg = u.img === "" ? "https://cdn.landesa.org/wp-content/uploads/default-user-image.png" : u.img;
                     fb.username = u.username;
                 }
             });
-        });
-    }, [listUser]);
+        }); 
+    }, [listUser, newListFeedback_20]);
+    const deleteMss = (feedback) => {
+        dispatch(deleteFeedback(feedback));    
+    }; 
     return (
         <DefaultTemplate>
             <Row>
                 <Col xs={12}>
-                    <h3 className="pt-3"><ArrowLeft className="pb-2" size={40} /> Back</h3>
-                </Col>
-                <Col xs={12}>
-                    <Row className="d-flex justify-content-center">
+                    <Row className="d-flex justify-content-center mt-4">
                         <Col xs={7} className="">
-                            <ul className="list-unstyled mt-3 box-chat border" >
+                            <ul className="list-unstyled mt-3 box-chat border" onScroll={handleScroll} >
+                                <li>
+                                    {
+                                        listFeedback.length < scrollValue ? ""
+                                            : (
+                                                <Row>
+                                                    <Col xs={12} className="text-center mt-1">
+                                                        <Spinner animation="border" role="status">
+                                                            <span className="visually-hidden">Loading...</span>
+                                                        </Spinner>
+                                                    </Col>
+                                                </Row>
+                                            )
+                                    }
+                                </li>
                                 {
-                                    newListFeedback_10.map((feedback, index) => (
-                                        <li key={feedback.id} ref={newListFeedback_10.length === index + 1 ? targetDivRef : undefined}>
+                                    newListFeedback_20.map((feedback, index) => (
+                                        <li key={feedback.id} ref={newListFeedback_20.length === index + 1 ? targetDivRef : undefined}>
                                             <Row>
                                                 <Col xs={12}>
-                                                    {
-                                                        index === 0
-                                                            ?
-                                                            (
-                                                                <Row>
-                                                                    <Col xs={12} className="text-center mt-1">
-                                                                        <Spinner animation="border" role="status">
-                                                                            <span className="visually-hidden">Loading...</span>
-                                                                        </Spinner>
-                                                                    </Col>
-                                                                </Row>
-                                                            ) : ""
-                                                    }
-                                                    <div className={`${user.id === feedback.userId ? "float-end d-flex justify-content-end me-2" : "float-start d-flex justify-content-start "} ms-2 w-75 ${index === newListFeedback_10.length - 1 ? "mb-2" : ""}`}>
+                                                    <div className={`${user.id === feedback.userId ? "float-end d-flex justify-content-end me-2" : "float-start d-flex justify-content-start "} ms-2 w-75 ${index === newListFeedback_20.length - 1 ? "mb-2" : ""}`}>
 
                                                         {
                                                             user.id !== feedback.userId
                                                                 ? (
-                                                                    <div className="d-flex align-items-end me-2" aria-describedby={feedback.username}>
+                                                                    <div className="d-flex align-items-end me-2">
                                                                         <OverlayTrigger
                                                                             key={feedback.id}
                                                                             placement={"left"}
-                                                                            variant="light"
                                                                             overlay={
-                                                                                <Tooltip id={`:r3ia:`}>
+                                                                                <Tooltip id={feedback.username}>
                                                                                     <span>{feedback.username}</span>
                                                                                 </Tooltip>
                                                                             }
                                                                         >
                                                                             <img
                                                                                 className="rounded-5 border img_32"
-                                                                                src={`${feedback.userImg === "" ? "https://cdn.landesa.org/wp-content/uploads/default-user-image.png" : feedback.userImg}`}
+                                                                                src={`${feedback.userImg}`}
                                                                                 alt=""
                                                                             />
                                                                         </OverlayTrigger>
@@ -147,8 +146,25 @@ const Feedback = () => {
                                                                 </Tooltip>
                                                             }
                                                         >
-                                                            <span className={`lh-sm pb-2 pt-1 text-break  bg-primary mt-2 px-4 rounded-5 text-white align-baseline`}>{feedback.feedback}</span>
-
+                                                            <>
+                                                                {
+                                                                    user.id === feedback.userId && feedback.type === "normal"
+                                                                        ? (<span className="custom-cursor px-1 pt-1 pb-1" onClick={() => deleteMss(feedback)}>&times;</span>) : ""
+                                                                }
+                                                                {
+                                                                    feedback.type === "normal"
+                                                                        ? (
+                                                                            <span className={`lh-sm pb-2 pt-1 text-break  bg-primary mt-2 px-4 rounded-5 text-white align-baseline`}>
+                                                                                {feedback.feedback}
+                                                                            </span>
+                                                                        )
+                                                                        : (
+                                                                            <span className={`lh-sm pb-2 pt-1 text-break  bg-secondary mt-2 px-4 rounded-5 text-white align-baseline`}>
+                                                                                Tin nhắn đã được thu hồi
+                                                                            </span>
+                                                                        ) 
+                                                                }
+                                                            </>
                                                         </OverlayTrigger>
                                                     </div>
                                                 </Col>
@@ -161,7 +177,7 @@ const Feedback = () => {
                         <Col xs={7}>
                             <Row className="d-flex justify-content-center mt-4">
                                 <Col xs={9}>
-                                    <InputField handleInputChange={handleInputChange} value={value} ref={inputValue} />
+                                    <InputField handleInputChange={handleInputChange} placeholder="Aa" value={value} ref={inputValue} />
                                 </Col>
                                 <Col xs={1}>
                                     <Button disabled={value === ""} onClick={handleSubmit}>Gửi</Button>

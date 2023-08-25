@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit"; 
-import { header, POST } from "../../../Type";
- 
+import { createSlice } from "@reduxjs/toolkit";
+import { DELETE, header, POST, PUT } from "../../../Type";
+
 const initialState = {
     loading: false,
     data: [],
@@ -16,11 +16,11 @@ const apiListFeedback = createSlice({
             state.error = null;
         },
         fetchFeedbackSuccess: (state, action) => {
-            state.loading = false; 
+            state.loading = false;
             state.data = action.payload;
-            
-        }, 
-        postFeedback: (state ,action) => {  
+
+        },
+        postFeedback: (state, action) => {
             fetch("http://localhost:9999/feedback", {
                 method: POST,
                 body: JSON.stringify({
@@ -28,8 +28,31 @@ const apiListFeedback = createSlice({
                     timeFeedback: new Date()
                 }),
                 headers: header,
-            })
-            
+            });
+        },
+        deleteFeedback: (state, action) => {
+            fetch("http://localhost:9999/feedback/" + action.payload.id, {
+                method: PUT,
+                body: JSON.stringify({
+                    storyId: action.payload.storyId,
+                    userId: action.payload.userId,
+                    feedback: action.payload.feedback,
+                    timeFeedback: action.payload.timeFeedback,
+                    type: "reject",
+                    id: action.payload.id
+                }),
+                headers: header
+            });
+            state.data = state.data.map(d => {
+                if (action.payload.id === d.id) {
+                    return { 
+                        ...d,
+                        userId: action.payload.userId,
+                        type: "reject", 
+                    }
+                }
+                return d;
+            });
         },
         fetchFeedbackFailure: (state, action) => {
             state.loading = false;
@@ -39,5 +62,5 @@ const apiListFeedback = createSlice({
 });
 
 const { reducer, actions } = apiListFeedback;
-export const { fetchFeedbackStart, fetchFeedbackSuccess, fetchFeedbackFailure, postFeedback } = actions;
+export const { fetchFeedbackStart, fetchFeedbackSuccess, fetchFeedbackFailure, postFeedback, deleteFeedback } = actions;
 export default reducer;

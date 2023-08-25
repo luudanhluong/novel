@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
     value: "",
-    scroll: 10,
+    scroll: 20,
 };
 
 const feedback = createSlice({
