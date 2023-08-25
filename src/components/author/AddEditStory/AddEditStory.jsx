@@ -23,8 +23,7 @@ const AddStory = () => {
     const [validated, setValidated] = useState(false);
     const categoryList = CategoryValues();
     const user = JSON.parse(localStorage.getItem("user"));
-    const { name, author, image, description, categoryId } = useSelector(state => state.story); 
-    console.log(location);
+    const { name, author, image, description, categoryId } = useSelector(state => state.story);  
     useEffect(() => {
         if (sid) {
             fetch("http://localhost:9999/Stories")
@@ -92,11 +91,7 @@ const AddStory = () => {
                 dispatch(updateStory(+sid))
             }
         }
-    };
-    const handleOnchange = (event) => {
-        const action = setCategoryId(event.target.value)
-        dispatch(action)
-    }
+    }; 
     return (
         <DefaultTemplate>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
@@ -117,7 +112,7 @@ const AddStory = () => {
                                                 name="category"
                                                 id={item.id}
                                                 required={categoryId.length === 0}
-                                                handleOnchange={handleOnchange}
+                                                handleOnchange={setCategoryId}
                                                 valid={categoryId.length === 0 ? "valid" : "invalid"}
                                                 checked={categoryId.includes(item.id)}
                                             />

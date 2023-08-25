@@ -8,7 +8,7 @@ const rateAvg = (rateStories) => {
         }, 0)
         avgRate = totalRate / rateStories.length 
     } 
-    return avgRate;
+    return parseFloat(avgRate.toFixed(1));
 }
 
 export default rateAvg;

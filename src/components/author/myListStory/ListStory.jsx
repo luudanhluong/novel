@@ -1,13 +1,13 @@
 
-import { memo } from "react";
-import { Button, Table } from "react-bootstrap";
-import { Chat, PencilSquare, PlusCircle } from "react-bootstrap-icons";
+import { Table } from "react-bootstrap";
+import { Chat, List, PencilSquare } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import CheckBox from "../../common/custom-fileds/CheckboxField";
 import category from "../../common/utilities/category";
 import rateAvg from "../../common/utilities/rateAvg";
 import SplitNumber from "../../SplitNumber";
 import Time from "../../UpdateTime";
+import { completedStory } from "../AddEditStory/storySlice";
 
 const ListSotry = (props) => {
     const { listStories = [], listFollows = [], listCategories = [], listRate = [] } = props;
@@ -15,16 +15,16 @@ const ListSotry = (props) => {
         <Table striped bordered hover size="sm">
             <thead>
                 <tr className="text-center">
-                    <th>#</th>
-                    <th>Tên truyện</th>
-                    <th>Thể loại</th>
-                    <th>Ngày tạo</th>
-                    <th>Lượt đọc</th>
-                    <th>Theo dõi</th>
-                    <th>Đánh giá</th>
-                    <th>Hoàn thành</th>
-                    <th>Kích hoạt</th>
-                    <th colSpan={3}>Hành động</th>
+                    <th className="align-middle text-center">#</th>
+                    <th className="align-middle text-center">Tên truyện</th>
+                    <th className="align-middle text-center">Thể loại</th>
+                    <th className="align-middle text-center">Ngày phát hành</th>
+                    <th className="align-middle text-center">Lượt đọc</th>
+                    <th className="align-middle text-center">Theo dõi</th>
+                    <th className="align-middle text-center">Đánh giá</th>
+                    <th className="align-middle text-center">Hoàn thành</th>
+                    <th className="align-middle text-center">Kích hoạt</th>
+                    <th className="align-middle text-center" colSpan={3}>Hành động</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,7 +34,7 @@ const ListSotry = (props) => {
                             <td className="align-middle text-center">{index + 1}</td>
                             <td className="align-middle text-center">{story.name}</td>
                             <td className="align-middle text-center">{category(listCategories, story)}</td>
-                            <td className="align-middle text-center">{Time(story.createDate)}</td>
+                            <td className="align-middle text-center">{story.publishedDate ===""? "Chưa được kích hoạt" :Time(story.publishedDate)}</td>
                             <td className="align-middle text-center">{SplitNumber(story.view)}</td>
                             <td className="align-middle text-center">
                                 {
@@ -48,19 +48,19 @@ const ListSotry = (props) => {
                             </td>
                             <td className="align-middle text-center">{rateAvg(listRate.filter(rate => rate.storyId === story.id))}</td>
                             <td className="align-middle text-center">
-                                <CheckBox name="category" required={false} disabled={story.status !== "Đang cập nhật"} checked={story.status !== "Đang cập nhật"} />
+                                <CheckBox name="status" required={false} disabled={story.status === "Đã hoàn thành" || story.active===0} checked={story.status === "Đã hoàn thành"} id={story}  handleOnchange={completedStory} />
                             </td>
                             <td className="text-center align-middle">
-                                <CheckBox name="category" required={false} disabled={true} checked={true} />
+                                <CheckBox name="active" required={false} disabled={true} checked={story.active===1} />
                             </td>
                             <td className="text-center align-middle">
-                                <Link to={`/author/addeditstory?sid=${story.id}`}><PencilSquare color="black" className="pb-1" size={22} /></Link >
+                                <Link to={story.active === 0 ? `/author/addeditstory?sid=${story.id}` : ""} ><PencilSquare color={story.active === 0 ? "black" : "grey"} className="pb-1" size={22} /></Link >
                             </td>
                             <td className="text-center align-middle">
-                                <Link ><PlusCircle color="black" className="pb-1" size={22} /></Link >
+                                <Link to={story.status === "Đang cập nhật" ?`/author/mystory/addeditchapter/${story.id}`:""} ><List color={story.status === "Đang cập nhật" ? "black" : "grey"} className="pb-1" size={22} /></Link >
                             </td>
                             <td className="text-center align-middle">
-                                <Link to={`/author/mystory/feedback/${story.id}`} ><Chat color="black" className="pb-1" size={22} /></Link >
+                                <Link to={`/author/mystory/boxchat/${story.id}`} ><Chat color="black" className="pb-1" size={22} /></Link >
                             </td>
                         </tr>
                     ))

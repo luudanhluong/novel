@@ -1,15 +1,14 @@
 import { useEffect, useMemo, useRef } from "react";
-import { Button, Col, OverlayTrigger, Row, Spinner, Tooltip } from "react-bootstrap";
-import { ArrowLeft } from "react-bootstrap-icons";
+import { Button, Col, OverlayTrigger, Row, Spinner, Tooltip } from "react-bootstrap"; 
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import CalTime from "../../../components/CalTime";
-import { deleteFeedback, fetchFeedbackSuccess, postFeedback } from "../../../components/common/api/dataFeedback/dataSlice";
-import { fetchUserSuccess } from "../../../components/common/api/dataUser/dataSlice";
+import { deleteFeedback, fetchFeedbackSuccess, postFeedback } from "../../../components/common/data/dataBoxChat/dataSlice";
+import { fetchUserSuccess } from "../../../components/common/data/dataUser/dataSlice";
 import InputField from "../../../components/common/custom-fileds/inputField/inputFiled";
 import userLogedIn from "../../../components/user/userLogedIn";
 import DefaultTemplate from "../../../templates/DefaultTemplate";
-import { setScrollValue, setValue } from "./feedbackSlice";
+import { setScrollValue, setValue } from "./boxChatSlice";
 
 const Feedback = () => {
     const dispatch = useDispatch();
@@ -63,7 +62,7 @@ const Feedback = () => {
     }
     useEffect(() => {
         dispatch(setScrollValue(20));
-    }, [window.location]);
+    }, [window.location, dispatch]);
     const ListFeedbackCopy = [...listFeedback];
     ListFeedbackCopy.sort((a, b) => new Date(b["timeFeedback"]) - new Date(a["timeFeedback"]));
     const newListFeedback = ListFeedbackCopy.map(fb => ({ ...fb, userImg: "", username: "" }));

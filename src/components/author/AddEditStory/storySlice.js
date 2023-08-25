@@ -9,7 +9,7 @@ const initialState = {
     description: '',
     userId: '',
     image: '',
-    createDate: '',
+    publishedDate: '',
     updateDate: '',
     view: 0,
     active: 0
@@ -25,7 +25,7 @@ const story = createSlice({
                 body: JSON.stringify({
                     ...state,
                     userId: action.payload,
-                    createDate: new Date(),
+                    publishedDate: "",
                     updateDate: new Date(),
                 }),
                 headers: header,
@@ -36,11 +36,23 @@ const story = createSlice({
                 method: PUT,
                 body: JSON.stringify({
                     ...state, 
-                    createDate: new Date(),
+                    publishedDate: "",
                     updateDate: new Date(),
                 }),
                 headers: header,
-            })
+            });
+        },
+        completedStory: (state, action) => {
+            const story = JSON.parse(action.payload);
+            fetch("http://localhost:9999/Stories/"+story.id, {
+                method: PUT,
+                body: JSON.stringify({
+                    ... story,
+                    publishedDate: new Date(),
+                    status: "Đã hoàn thành",
+                }),
+                headers: header,
+            });
         },
         setFormValue: (state, action) => {  
             state.name = action.payload.name; 
@@ -52,6 +64,9 @@ const story = createSlice({
         setDesciption: (state, action) => {
             state.description = action.payload;
         },
+        updateStatus: (state, action) => {
+            state.description = action.payload;
+        },
         setName: (state, action) => {
             state.name = action.payload;
         },
@@ -61,7 +76,7 @@ const story = createSlice({
         setImage: (state, action) => {
             state.image = action.payload;
         },
-        setCategoryId: (state, action) => {
+        setCategoryId: (state, action) => { 
             const categoryIdIndex = state.categoryId.indexOf(+action.payload);
             if (categoryIdIndex === -1) {
                 state.categoryId.push(+action.payload);
@@ -74,5 +89,5 @@ const story = createSlice({
 })
 
 const { reducer, actions } = story
-export const { addStory, setDesciption, setName, setAuthor, setImage, setCategoryId, setFormValue, updateStory } = actions
+export const { addStory, setDesciption, setName, setAuthor, setImage, setCategoryId, setFormValue, updateStory, completedStory } = actions
 export default reducer;

@@ -90,7 +90,7 @@ const ViewList = ({ sort, categoryValue, statusValue }) => {
     }) 
     stories.sort((a, b) => {
         if (sort === "1") {
-            return new Date(a["updateDate"]) - new Date(b["updateDate"])
+            return new Date(a["publishedDate"]) - new Date(b["publishedDate"])
         } else if (sort === "2") {
             return new Date(a["publicDate"]) - new Date(b["publicDate"])
         } else if (sort === "3") {

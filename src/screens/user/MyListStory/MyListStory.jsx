@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import DefaultTemplate from "../../../templates/DefaultTemplate";
 import ListStory from "../../../components/author/myListStory/ListStory"
 import userLogedIn from "../../../components/user/userLogedIn";
-import { fetchCategorySuccess } from "../../../components/common/api/dataCategory/dataSlice";
-import { fetchFollowSuccess } from "../../../components/common/api/dataFollow/dataSlice";
-import { fetchStoriesSuccess } from "../../../components/common/api/dataStory/dataSlice";
-import { fetchRateSuccess } from "../../../components/common/api/dataRate/dataSlice";
+import { fetchCategorySuccess } from "../../../components/common/data/dataCategory/dataSlice";
+import { fetchFollowSuccess } from "../../../components/common/data/dataFollow/dataSlice";
+import { fetchStoriesSuccess } from "../../../components/common/data/dataStory/dataSlice";
+import { fetchRateSuccess } from "../../../components/common/data/dataRate/dataSlice";
 const MyListStory = () => {
     const dispatch = useDispatch();
     const listStories = useSelector(state => state.listStory.data);
@@ -24,7 +24,7 @@ const MyListStory = () => {
             .catch(() => {
                 throw new Error("Network response was not ok");
             })
-    }, [])
+    }, [dispatch, user]);
     useEffect(() => {
         fetch("http://localhost:9999/Categories")
             .then(res => res.json())
@@ -32,7 +32,7 @@ const MyListStory = () => {
                 const action = fetchCategorySuccess(data);
                 dispatch(action)
             })
-    }, [])
+    }, [dispatch]);
     useEffect(() => {
         fetch("http://localhost:9999/followStory")
             .then(res => res.json())
@@ -40,7 +40,7 @@ const MyListStory = () => {
                 const action = fetchFollowSuccess(data);
                 dispatch(action)
             })
-    }, [])
+    }, [dispatch]);
     useEffect(() => {
         fetch("http://localhost:9999/rateStory")
             .then(res => res.json())
@@ -48,7 +48,8 @@ const MyListStory = () => {
                 const action = fetchRateSuccess(data);
                 dispatch(action)
             })
-    }, [])
+    }, [dispatch]);
+    
     return (
         <DefaultTemplate>
             <ListStory listStories={listStories} listCategories={listCategories} listFollows={listFollows} listRate={listRate} />

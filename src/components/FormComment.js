@@ -37,24 +37,24 @@ const FormComment = ({ sid }) => {
             .then(data => setComments(data.filter(d => d.storyId === parseInt(sid))))
     }, [sid, editNo, replyNo, deleteNo, commentNo])
     const newComment = comments.map(comment => ({ ...comment, replies: [] }))
-    users.map(user => {
-        newComment.map(comment => {
+    users.forEach(user => {
+        newComment.forEach(comment => {
             if (comment.userId === user.id) {
                 comment.userImg = user.img;
                 comment.userName = user.username;
             }
         })
     })
-    replies.map(r => {
-        newComment.map(comment => {
+    replies.forEach(r => {
+        newComment.forEach(comment => {
             if (r.commentId === comment.id) {
                 comment.replies.push(r)
             }
         })
     })
-    users.map(user => {
-        newComment.map(comment => {
-            comment.replies.map(reply => {
+    users.forEach(user => {
+        newComment.forEach(comment => {
+            comment.replies.forEach(reply => {
                 if (reply.userId === user.id) {
                     reply.userImg = user.img;
                     reply.userName = user.username;

@@ -10,7 +10,8 @@ import Register from './screens/Register';
 import SearchStory from './screens/SearchStory';
 import AddEditStory from './components/author/AddEditStory/AddEditStory';
 import MyListStory from './screens/user/MyListStory/MyListStory';
-import Feedback from './screens/user/feedback/Feedback';
+import BoxChat from './screens/user/boxChat/BoxChat';
+import ViewListChapter from './screens/user/Chapter/ViewListChapter';
 
 function App() {
   return (
@@ -25,7 +26,8 @@ function App() {
           <Route path='/search' element={<SearchStory />} />
           <Route path='/author/addeditstory' element={<AddEditStory />} />
           <Route path='/author/mystory' element = {<MyListStory /> } />
-          <Route path='/author/mystory/feedback/:sid' element = {<Feedback />}  />
+          <Route path='/author/mystory/boxchat/:sid' element = {<BoxChat />}  />
+          <Route path='/author/mystory/addeditchapter/:sid' element = {<ViewListChapter />}  />
         </Routes>
       </BrowserRouter>
     </div>

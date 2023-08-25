@@ -1,13 +1,13 @@
 import {configureStore} from '@reduxjs/toolkit';
 import storyReducer from "../components/author/AddEditStory/storySlice"
 import userReducer from "../components/user/userSlice" 
-import listStoryReducer from "../components/common/api/dataStory/dataSlice"
-import listCategoryReducer from "../components/common/api/dataCategory/dataSlice"
-import listFollowReducer from "../components/common/api/dataFollow/dataSlice"
-import listRateReducer from "../components/common/api/dataRate/dataSlice"
-import feedbackReducer from "../screens/user/feedback/feedbackSlice"
-import listFeedbackReducer from "../components/common/api/dataFeedback/dataSlice"
-import listUserReducer from "../components/common/api/dataUser/dataSlice"
+import listStoryReducer from "../components/common/data/dataStory/dataSlice"
+import listCategoryReducer from "../components/common/data/dataCategory/dataSlice"
+import listFollowReducer from "../components/common/data/dataFollow/dataSlice"
+import listRateReducer from "../components/common/data/dataRate/dataSlice"
+import feedbackReducer from "../screens/user/boxChat/boxChatSlice"
+import listFeedbackReducer from "../components/common/data/dataBoxChat/dataSlice"
+import listUserReducer from "../components/common/data/dataUser/dataSlice"
 const rootReducer = {
     story: storyReducer,
     user: userReducer,

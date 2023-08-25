@@ -17,8 +17,7 @@ const apiListStory = createSlice({
         },
         fetchStoriesSuccess: (state, action) => {
             state.loading = false; 
-            state.data = action.payload;
-            
+            state.data = action.payload; 
         },
         fetchStorySuccess: (state, action) => { 
             state.loading = false; 
