@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { header, POST, PUT } from "../../../Type";
+import { header, POST, PUT } from "../../utilities/type";
 
 const initialState = {
     loading: false,

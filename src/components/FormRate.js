@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { header, POST, PUT } from "./Type";
+import { header, POST, PUT } from "./common/utilities/type";
 
 const FormRate = ({ sid, onchangeRateNo, story }) => {
     const navigate = useNavigate("")

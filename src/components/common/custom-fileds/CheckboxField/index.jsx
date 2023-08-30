@@ -18,7 +18,7 @@ const CheckBox = (props) => {
                 required={required}
                 pattern={pattern}
                 feedbackType={valid} 
-                checked={checked}
+                checked={checked} 
             />
         </Form.Group>
     );

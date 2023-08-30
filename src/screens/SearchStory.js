@@ -1,13 +1,11 @@
-import { useEffect, useState } from "react";
-import { Col, Row } from "react-bootstrap"; 
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Col, Row } from "react-bootstrap";  
+import ViewList from "../components/common/story/ViewList";
 import ListCategories from "../components/ListCategories";
-import SearchBy from "../components/SearchBy";
-import ViewList from "../components/ViewList"; 
+import SearchBy from "../components/SearchBy"; 
 import DefaultTemplate from "../templates/DefaultTemplate";
 
-const SearchStory = () => {
-    const navigate = useNavigate("") 
+const SearchStory = () => { 
     const [sort, setSort] = useState('1')
     const [category, setCategory] = useState('0')
     const [status, setStatus] = useState('1')

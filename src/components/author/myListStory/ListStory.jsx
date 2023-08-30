@@ -1,18 +1,22 @@
 
 import { Table } from "react-bootstrap";
 import { Chat, List, PencilSquare } from "react-bootstrap-icons";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CheckBox from "../../common/custom-fileds/CheckboxField";
+import { completedStory } from "../../common/data/dataStory/dataSlice";
 import category from "../../common/utilities/category";
 import rateAvg from "../../common/utilities/rateAvg";
-import SplitNumber from "../../SplitNumber";
-import Time from "../../UpdateTime";
-import { completedStory } from "../AddEditStory/storySlice";
+import SplitNumber from "../../common/utilities/SplitNumber";
+import Time from "../../UpdateTime"; 
 
-const ListSotry = (props) => {
-    const { listStories = [], listFollows = [], listCategories = [], listRate = [] } = props;
+const ListSotry = () => { 
+    const listStories = useSelector(state => state.listStory.data);
+    const listCategories = useSelector(state => state.listCategory.data);
+    const listFollows = useSelector(state => state.listFollow.data);
+    const listRate = useSelector(state => state.listRate.data); 
     return (
-        <Table striped bordered hover size="sm">
+        <Table striped bordered size="sm">
             <thead>
                 <tr className="text-center">
                     <th className="align-middle text-center">#</th>
@@ -46,7 +50,7 @@ const ListSotry = (props) => {
                                     }, 0)
                                 }
                             </td>
-                            <td className="align-middle text-center">{rateAvg(listRate.filter(rate => rate.storyId === story.id))}</td>
+                            <td className="align-middle text-center">{rateAvg(listRate.filter(rate => rate.rateStoryId === story.id))}</td>
                             <td className="align-middle text-center">
                                 <CheckBox name="status" required={false} disabled={story.status === "Đã hoàn thành" || story.active===0} checked={story.status === "Đã hoàn thành"} id={story}  handleOnchange={completedStory} />
                             </td>
@@ -57,7 +61,7 @@ const ListSotry = (props) => {
                                 <Link to={story.active === 0 ? `/author/addeditstory?sid=${story.id}` : ""} ><PencilSquare color={story.active === 0 ? "black" : "grey"} className="pb-1" size={22} /></Link >
                             </td>
                             <td className="text-center align-middle">
-                                <Link to={story.status === "Đang cập nhật" ?`/author/mystory/addeditchapter/${story.id}`:""} ><List color={story.status === "Đang cập nhật" ? "black" : "grey"} className="pb-1" size={22} /></Link >
+                                <Link to={story.status === "Đang cập nhật" ?`/author/mystory/listchapter/${story.id}`:""} ><List color={story.status === "Đang cập nhật" ? "black" : "grey"} className="pb-1" size={22} /></Link >
                             </td>
                             <td className="text-center align-middle">
                                 <Link to={`/author/mystory/boxchat/${story.id}`} ><Chat color="black" className="pb-1" size={22} /></Link >

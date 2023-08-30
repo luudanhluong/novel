@@ -1,4 +1,4 @@
-const CalTime = (pastTime) => {
+const calTime = (pastTime) => {
     let value = new Date() - new Date(pastTime);
     if (Math.floor((value / 3600) / 60) < 60) {
         if (Math.floor((value / 3600) / 60) === 0) {
@@ -16,4 +16,4 @@ const CalTime = (pastTime) => {
         return `${(Math.floor((value / 3600) / 60 / 24 / 30 / 12 / 11))} năm trước`
     }
 }
-export default CalTime
+export default calTime;

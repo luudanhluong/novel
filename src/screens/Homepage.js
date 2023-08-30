@@ -1,9 +1,9 @@
 
 import { Row, Col } from 'react-bootstrap'
 import { toast } from 'react-toastify';
+import ViewList from '../components/common/story/ViewList';
 import SliderComponent from '../components/SliderComponent';
-import TopViewStories from '../components/TopViewStories';
-import ViewList from '../components/ViewList';
+import TopViewStories from '../components/TopViewStories'; 
 import DefaultTemplate from "../templates/DefaultTemplate";
 
 const Homepage = () => {

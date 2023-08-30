@@ -1,57 +1,29 @@
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import InputField from "../../common/custom-fileds/inputField/inputFiled";
+import InputField from "../../common/custom-fileds/inputField";
 import TextArea from "../../common/custom-fileds/textArea";
-import CategoryValues from "../../common/categoryValue/main";
-import CheckBox from "../../common/custom-fileds/CheckboxField";
+import CategoryValues from "../../common/categoryValue/main"; 
 import { ListGroup } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux';
-import { addStory, setAuthor, setCategoryId, setDesciption, setFormValue, setImage, setName, updateStory } from "./storySlice";
+import { addStory, setAuthor, setCategoryId, setDesciption, setImage, setName, updateStory } from "./storySlice";
 import DefaultTemplate from "../../../templates/DefaultTemplate";
 import { updateUser } from '../../user/userSlice';
-import getParameter from '../../common/utilities/getParameter'; 
-import { useLocation } from 'react-router-dom';
+import getParameter from '../../common/utilities/getParameter';  
+import CheckBox from '../../common/custom-fileds/CheckboxField';
+import FetchData from './FetchData';
 
 const AddStory = () => {
     let sid = getParameter("sid");
-    const location = useLocation()
     const dispatch = useDispatch();
     const [validated, setValidated] = useState(false);
     const categoryList = CategoryValues();
     const user = JSON.parse(localStorage.getItem("user"));
     const { name, author, image, description, categoryId } = useSelector(state => state.story);  
-    useEffect(() => {
-        if (sid) {
-            fetch("http://localhost:9999/Stories")
-                .then(res => res.json())
-                .then(data => {
-                    const action = setFormValue(data.find(d => d.id === parseInt(sid)));
-                    dispatch(action);
-                })
-                .catch(() => {
-                    throw new Error("Get error at edit!");
-                })
-        } else {
-            const action = setFormValue({
-                name: '',
-                status: 'Đang cập nhật',
-                categoryId: [],
-                author: '',
-                description: '',
-                userId: '',
-                image: '',
-                createDate: '',
-                updateDate: '',
-                view: 0,
-                active: 0
-            });
-            dispatch(action);
-        }
-    }, [location])
+    FetchData(sid);
     const handleInputChange1 = (event) => {
         const action = setName(event.target.value)
         dispatch(action)

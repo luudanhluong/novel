@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import { Chat } from "react-bootstrap-icons";
 import { toast } from "react-toastify";
-import CalTime from "./CalTime";
-import { DELETE, header, POST, PUT } from "./Type";
+import CalTime from "./common/utilities/calTime";
+import { DELETE, header, POST, PUT } from "./common/utilities/type";
 const FormComment = ({ sid }) => {
     const commentValue = useRef("")
     const commentReplyValue = useRef("")
@@ -165,10 +165,40 @@ const FormComment = ({ sid }) => {
                     status: 0,
                 }),
                 headers: header
-            })
+            });
             setEditReplyNo(0)
             setEditReply("")
         }
+    }
+    const handleReport = (c) => {
+        fetch("http://localhost:9999/comments/" + c.id, {
+            method: PUT,
+            body: JSON.stringify({
+                userId: c.userId,
+                storyId: c.storyId,
+                comment: c.comment,
+                date: c.date,
+                status: 1,
+                id: 1
+            }),
+            headers: header
+        });
+        toast.success("Chúng tôi đã nhận được phán ánh của bạn!");
+    }
+    const handleReportReply = (reply) => {
+        fetch("http://localhost:9999/replies/" + reply.id, {
+            method: PUT,
+            body: JSON.stringify({
+                userId: reply.userId,
+                reply: reply.reply,
+                commentId: reply.commentId,
+                date: reply.date,
+                status: 1,
+                id: 1
+            }),
+            headers: header
+        });
+        toast.success("Chúng tôi đã nhận được phán ánh của bạn!");
     }
     return (
         <Row className="pb-5 mb-5">
@@ -244,7 +274,7 @@ const FormComment = ({ sid }) => {
                                                     {
                                                         user === null || user.id !== c.userId ?
                                                             (
-                                                                <li className="fs-10 text-info me-1 ms-1 custom-cursor">Báo cáo</li>
+                                                                <li onClick={() => handleReport(c)} className="fs-10 text-info me-1 ms-1 custom-cursor">Báo cáo</li>
                                                             ) : user.id === c.userId ?
                                                                 (
                                                                     <>
@@ -326,7 +356,7 @@ const FormComment = ({ sid }) => {
                                                                                             {
                                                                                                 user === null || user.id !== reply.userId ?
                                                                                                     (
-                                                                                                        <li className="fs-10 text-info me-1 ms-1 custom-cursor">Báo cáo</li>
+                                                                                                        <li onClick={() => handleReportReply(reply)} className="fs-10 text-info me-1 ms-1 custom-cursor" >Báo cáo</li>
                                                                                                     ) : user.id === reply.userId ?
                                                                                                         (
                                                                                                             <>

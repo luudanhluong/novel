@@ -1,4 +1,4 @@
-const CountView = (value) => {
+const countView = (value) => {
     if (value >= 1000 && value < 1000000) {
         return `${parseInt(value / 1000)}K`
     } else if (value >= 1000000 && value < 1000000000) {
@@ -8,4 +8,4 @@ const CountView = (value) => {
     }
     return value
 }
-export default CountView
+export default countView

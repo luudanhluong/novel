@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { header, POST, PUT } from "../../Type";
+import { header, POST, PUT } from "../../common/utilities/type";
 
 const initialState = {
     name: '',
@@ -32,34 +32,25 @@ const story = createSlice({
             })
         },
         updateStory: (state, action) => {
-            fetch("http://localhost:9999/Stories/"+action.payload, {
+            fetch("http://localhost:9999/Stories/" + action.payload, {
                 method: PUT,
                 body: JSON.stringify({
-                    ...state, 
+                    ...state,
                     publishedDate: "",
                     updateDate: new Date(),
                 }),
                 headers: header,
+            })
+            .catch(()=> {
+                throw new Error("Không tìm thấy link");
             });
-        },
-        completedStory: (state, action) => {
-            const story = JSON.parse(action.payload);
-            fetch("http://localhost:9999/Stories/"+story.id, {
-                method: PUT,
-                body: JSON.stringify({
-                    ... story,
-                    publishedDate: new Date(),
-                    status: "Đã hoàn thành",
-                }),
-                headers: header,
-            });
-        },
-        setFormValue: (state, action) => {  
-            state.name = action.payload.name; 
+        }, 
+        setFormValue: (state, action) => {
+            state.name = action.payload.name;
             state.categoryId = action.payload.categoryId;
             state.author = action.payload.author;
-            state.description = action.payload.description;  
-            state.userId =action.payload.userId;
+            state.description = action.payload.description;
+            state.userId = action.payload.userId;
         },
         setDesciption: (state, action) => {
             state.description = action.payload;
@@ -76,7 +67,7 @@ const story = createSlice({
         setImage: (state, action) => {
             state.image = action.payload;
         },
-        setCategoryId: (state, action) => { 
+        setCategoryId: (state, action) => {
             const categoryIdIndex = state.categoryId.indexOf(+action.payload);
             if (categoryIdIndex === -1) {
                 state.categoryId.push(+action.payload);
@@ -89,5 +80,5 @@ const story = createSlice({
 })
 
 const { reducer, actions } = story
-export const { addStory, setDesciption, setName, setAuthor, setImage, setCategoryId, setFormValue, updateStory, completedStory } = actions
+export const { addStory, setDesciption, setName, setAuthor, setImage, setCategoryId, setFormValue, updateStory } = actions
 export default reducer;

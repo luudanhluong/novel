@@ -1,10 +1,10 @@
 {
   "Users": [
     {
-      "username": "admin",
+      "username": "user",
       "email": "Luongldhe163727@fpt.edu.vn",
       "phoneNumber": "0375297014",
-      "password": "020141b0381b7818bba0092671dc3524fb1b47cbc5dadec0334e38723906e0e4",
+      "password": "26d9b0e9924f0b3d393dc68bbe59486719d3ef51854545a0bb056ef271ba6fba",
       "img": "",
       "role": 1,
       "id": 1
@@ -15,17 +15,26 @@
       "phoneNumber": "0375397014",
       "password": "26d9b0e9924f0b3d393dc68bbe59486719d3ef51854545a0bb056ef271ba6fba",
       "img": "",
-      "role": 1,
+      "role": 3,
       "id": 2
     },
     {
-      "username": "luu danh lu",
+      "username": "author",
       "email": "Luongldhse163727@fpt.edu.vn",
       "phoneNumber": "0375497014",
       "password": "26d9b0e9924f0b3d393dc68bbe59486719d3ef51854545a0bb056ef271ba6fba",
       "img": "",
       "role": 2,
       "id": 3
+    },
+    {
+      "username": "author2",
+      "email": "Luongldhse163727@fpt.edu.vn",
+      "phoneNumber": "0375597014",
+      "password": "26d9b0e9924f0b3d393dc68bbe59486719d3ef51854545a0bb056ef271ba6fba",
+      "img": "",
+      "role": 2,
+      "id": 4
     }
   ],
   "Categories": [
@@ -115,11 +124,11 @@
       ],
       "author": "Akutami Gege",
       "description": "Tên khác: Blue Lock (FULL HD); Bluelock Yoichi Isagi đã bỏ lỡ cơ hội tham dự giải Cao Trung toàn quốc do đã chuyền cho đồng đội thay vì tự thân mình dứt điểm. Cậu là một trong 300 chân sút U-18 được tuyển chọn bởi Jinpachi Ego, người đàn ông được Hiệp Hội Bóng Đá Nhật Bản thuê sau hồi FIFA World Cup năm 2018, nhằm dẫn dắt Nhật Bản vô địch World Cup bằng cách tiêu diệt nền bóng đá Nhật Bản. Kế hoạch của Ego gồm việc cô lập 300 tay sút trong một nhà ngục - dưới một tổ chức với tên gọi là 'Blue Lock', với mục tiêu là tạo ra chân sút 'tự phụ' nhất thế giới, điều mà nền bóng đá Nhật Bản còn thiếu.",
-      "userId": 1,
+      "userId": 3,
       "image": "https://nettruyenco.vn/public/images/comics/jujutsu-kaisen-chu-thuat-hoi-chien.jpg",
       "publishedDate": "2023-08-09T10:06:31.336Z",
       "updateDate": "2023-08-09T10:06:31.336Z",
-      "view": 999999,
+      "view": 1000012,
       "active": 1
     },
     {
@@ -134,7 +143,7 @@
       ],
       "author": "Kaneshiro Muneyuki",
       "description": "Tên khác: Blue Lock (FULL HD); Bluelock Yoichi Isagi đã bỏ lỡ cơ hội tham dự giải Cao Trung toàn quốc do đã chuyền cho đồng đội thay vì tự thân mình dứt điểm. Cậu là một trong 300 chân sút U-18 được tuyển chọn bởi Jinpachi Ego, người đàn ông được Hiệp Hội Bóng Đá Nhật Bản thuê sau hồi FIFA World Cup năm 2018, nhằm dẫn dắt Nhật Bản vô địch World Cup bằng cách tiêu diệt nền bóng đá Nhật Bản. Kế hoạch của Ego gồm việc cô lập 300 tay sút trong một nhà ngục - dưới một tổ chức với tên gọi là 'Blue Lock', với mục tiêu là tạo ra chân sút 'tự phụ' nhất thế giới, điều mà nền bóng đá Nhật Bản còn thiếu.",
-      "userId": 1,
+      "userId": 3,
       "image": "https://nettruyenco.vn/public/images/comics/thien-tai-bong-da-tien-dao-so-1.jpg",
       "publishedDate": "2023-08-09T10:06:31.336Z",
       "updateDate": "2023-08-09T10:06:31.336Z",
@@ -153,11 +162,11 @@
       ],
       "author": "Murata Yuusuke",
       "description": "Onepunch-Man là một Manga thể loại siêu anh hùng với đặc trưng phồng tôm đấm phát chết luôn… Lol!!!",
-      "userId": 1,
+      "userId": 3,
       "image": "https://nettruyenco.vn/public/images/comics/onepunch-man.jpg",
       "publishedDate": "2023-08-09T10:06:31.336Z",
       "updateDate": "2023-08-09T10:06:31.336Z",
-      "view": 1000006,
+      "view": 1000020,
       "active": 1
     },
     {
@@ -172,11 +181,11 @@
       ],
       "author": "Akugami Mede",
       "description": "Từ một thế giới tu tiên đang trên đà xuống dốc , sự xuất hiện của hắn giống như thổi một làn sức sống mới ngăn chặn sự xuống dốc đó . Từ sau đại kiếp , Long môn , Địa Phủ...",
-      "userId": 1,
+      "userId": 3,
       "image": "https://nettruyenco.vn/public/images/comics/nguyen-lai-ta-la-tu-tien-dai-lao.jpg",
       "publishedDate": "2023-08-09T10:06:31.336Z",
       "updateDate": "2023-08-09T10:06:31.336Z",
-      "view": 1000000,
+      "view": 1000007,
       "active": 1
     },
     {
@@ -191,11 +200,11 @@
       ],
       "author": "Phan Kỳ Động Mạn",
       "description": "Nữ chính trong một lần tai nạn xe bị sinh vật bí ẩn gá vào người, sau khi tỉnh lại đến một thế giới yêu linh. Trong lúc cô ấy sợ hãi, tuyệt vọng thì xuất hiện một thiếu niên cứu cô ta về hiện thế...",
-      "userId": 1,
+      "userId": 3,
       "image": "https://nettruyenco.vn/public/images/comics/dai-tuong-vo-hinh.jpg",
       "publishedDate": "2023-08-09T10:06:31.336Z",
       "updateDate": "2023-08-09T10:06:31.336Z",
-      "view": 10000020,
+      "view": 10000041,
       "active": 1
     },
     {
@@ -210,7 +219,7 @@
       ],
       "author": "Akutami Gege",
       "description": "Võ đạo đỉnh phong, là cô độc, là tịch mịch, là dài đằng đẵng cầu tác, là cao xử bất thắng hàn Phát triển trong nghịch cảnh, cầu sinh nơi tuyệt địa, bất khuất không buông tha, mới có thể có thể phá võ chi cực....",
-      "userId": 1,
+      "userId": 3,
       "image": "https://nettruyenco.vn/public/images/comics/vo-luyen-dinh-phong.jpg",
       "publishedDate": "2023-08-09T10:06:31.336Z",
       "updateDate": "2023-08-09T10:06:31.336Z",
@@ -220,7 +229,7 @@
     {
       "id": 7,
       "name": "NGÃ LÃO MA THẦN",
-      "status": "Đã hoàn thành",
+      "status": "Đang cập nhật",
       "categoryId": [
         1,
         4,
@@ -229,7 +238,7 @@
       ],
       "author": "Akutami Gege",
       "description": "Một trong những Ma thần mạnh nhất lịch sử võ lâm xuất hiện, là kỳ tài võ học kinh người, nhưng khởi nguồn lại là do ...",
-      "userId": 1,
+      "userId": 3,
       "image": "https://nettruyenco.vn/public/images/comics/nga-lao-ma-than.jpg",
       "publishedDate": "2023-08-09T10:06:31.336Z",
       "updateDate": "2023-08-10T10:56:10.273Z",
@@ -248,7 +257,7 @@
       ],
       "author": "Akutami Gege",
       "description": "Yêu Thần Vừa Xuất, Ai Dám Tranh Phong Yêu Linh Sư Mạnh Nhất Thánh Linh Đại Lục Nhiếp Li, bởi vì một cuốn sách thần bí Yêu Linh Thời Không mà trở về năm 13 tuổi, tu luyện mạnh nhất công pháp, mạnh....",
-      "userId": 1,
+      "userId": 3,
       "image": "https://nettruyenco.vn/public/images/comics/yeu-than-ky.jpg",
       "publishedDate": "2023-08-09T10:06:31.336Z",
       "updateDate": "2023-08-09T10:06:31.336Z",
@@ -256,6 +265,7 @@
       "active": 1
     },
     {
+      "id": 9,
       "name": "Luong",
       "status": "Đang cập nhật",
       "categoryId": [
@@ -271,8 +281,7 @@
       "publishedDate": "",
       "updateDate": "2023-08-21T18:46:34.371Z",
       "view": 0,
-      "active": 0,
-      "id": 9
+      "active": 0
     }
   ],
   "rateStory": [
@@ -365,6 +374,12 @@
       "rateStoryId": 8,
       "userId": 3,
       "id": 15
+    },
+    {
+      "rateNo": 5,
+      "rateStoryId": 5,
+      "userId": 3,
+      "id": 16
     }
   ],
   "chapter": [
@@ -373,7 +388,7 @@
       "storyId": 5,
       "chapterNo": 1,
       "name": "Tóm Tắt",
-      "date": "2023-08-09T10:06:31.336Z",
+      "publishedDate": "2023-08-09T10:06:31.336Z",
       "active": 1
     },
     {
@@ -381,80 +396,72 @@
       "storyId": 5,
       "chapterNo": 2,
       "name": "",
-      "date": "2023-08-09T10:06:31.336Z",
-      "active": 1
+      "publishedDate": "",
+      "active": 0
     },
     {
       "id": 3,
       "storyId": 5,
       "chapterNo": 3,
       "name": "Tóm Tắt",
-      "date": "2023-08-09T10:06:31.336Z",
-      "active": 1
+      "publishedDate": "",
+      "active": 0
     },
     {
       "id": 4,
       "storyId": 5,
       "chapterNo": 4,
       "name": "Tóm Tắt",
-      "date": "2023-08-09T10:06:31.336Z",
-      "active": 1
+      "publishedDate": "",
+      "active": 0
     },
     {
       "id": 5,
       "storyId": 4,
       "chapterNo": 1,
       "name": "Tóm Tắt",
-      "date": "2023-08-09T10:06:31.336Z",
-      "active": 1
+      "publishedDate": "",
+      "active": 0
     },
     {
       "id": 6,
       "storyId": 4,
       "chapterNo": 2,
       "name": "Tóm Tắt",
-      "date": "2023-08-09T10:06:31.336Z",
-      "active": 1
+      "publishedDate": "",
+      "active": 0
     },
     {
       "id": 7,
       "storyId": 4,
       "chapterNo": 3,
       "name": "Tóm Tắt",
-      "date": "2023-08-09T10:06:31.336Z",
-      "active": 1
+      "publishedDate": "",
+      "active": 0
     },
     {
       "id": 8,
       "storyId": 4,
       "chapterNo": 4,
       "name": "Tóm Tắt",
-      "date": "2023-08-09T10:06:31.336Z",
-      "active": 1
+      "publishedDate": "",
+      "active": 0
     },
     {
       "id": 9,
       "storyId": 4,
       "chapterNo": 5,
       "name": "Tóm Tắt",
-      "date": "2023-08-09T10:06:31.336Z",
-      "active": 1
+      "publishedDate": "",
+      "active": 0
     },
     {
       "id": 10,
       "storyId": 1,
       "chapterNo": 1,
       "name": "Tóm Tắt",
-      "date": "2023-08-09T10:06:31.336Z",
-      "active": 1
-    },
-    {
-      "id": 11,
-      "storyId": 3,
-      "chapterNo": 1,
-      "name": "Tóm Tắt",
-      "date": "2023-08-09T10:06:31.336Z",
-      "active": 1
+      "publishedDate": "",
+      "active": 0
     }
   ],
   "chapterContent": [
@@ -489,6 +496,12 @@
         "Tôi cần một người vợ.",
         "Trầm Khê còn nhớ rằng lúc ấy mình nghe được câu này liền phản ứng, đầu óc trống rỗng, toàn thân cứng ngắc trốn ở sau cây cột, trong lỗ tai ong ong cái gì đều nghe không được. Lúc đó truyền đến tiếng bố cô đập đồ đạc mới khiến cô tỉnh lại."
       ]
+    },
+    {
+      "storyId": 5,
+      "chapterId": 2,
+      "paragraph": [],
+      "id": 2
     }
   ],
   "followStory": [
@@ -516,220 +529,32 @@
       "storyId": 1,
       "userId": 2,
       "id": 9
+    },
+    {
+      "storyId": 5,
+      "userId": 3,
+      "id": 10
     }
   ],
   "comments": [
     {
-      "userId": 2,
+      "userId": 3,
       "storyId": 7,
-      "comment": "sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss",
-      "date": "2023-08-10T05:45:18.821Z",
-      "status": 0,
+      "comment": "s",
+      "date": "2023-08-30T16:20:27.735Z",
+      "status": 1,
       "id": 1
-    },
-    {
-      "userId": 2,
-      "storyId": 7,
-      "comment": "scczcsdvsvs",
-      "date": "2023-08-10T07:58:12.432Z",
-      "status": 0,
-      "id": 2
-    },
-    {
-      "userId": 3,
-      "storyId": 7,
-      "comment": "hay",
-      "date": "2023-08-10T09:20:39.106Z",
-      "status": 0,
-      "id": 3
-    },
-    {
-      "userId": 3,
-      "storyId": 5,
-      "comment": "scscsc",
-      "date": "2023-08-10T10:56:10.273Z",
-      "status": 0,
-      "id": 4
     }
   ],
   "replies": [
     {
-      "userId": 2,
-      "reply": "love luong",
+      "userId": 1,
+      "reply": "xxx",
       "commentId": 1,
-      "date": "2023-08-10T08:31:14.833Z",
-      "status": 0,
+      "date": "2023-08-30T16:37:45.936Z",
+      "status": 1,
       "id": 1
-    },
-    {
-      "userId": 2,
-      "reply": "f ff ",
-      "commentId": 1,
-      "date": "2023-08-10T08:32:44.473Z",
-      "status": 0,
-      "id": 2
-    },
-    {
-      "userId": 3,
-      "reply": "hello",
-      "commentId": 1,
-      "date": "2023-08-10T09:19:20.646Z",
-      "status": 0,
-      "id": 3
-    },
-    {
-      "userId": 3,
-      "reply": "lo",
-      "commentId": 2,
-      "date": "2023-08-10T09:20:34.378Z",
-      "status": 0,
-      "id": 4
     }
   ],
-  "feedback": [
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "scscsc",
-      "timeFeedback": "2023-08-22T16:30:43.434Z",
-      "type": "normal",
-      "id": 1
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "scscscscs",
-      "timeFeedback": "2023-08-22T16:31:12.060Z",
-      "type": "normal",
-      "id": 2
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "scscs",
-      "timeFeedback": "2023-08-22T16:31:30.571Z",
-      "type": "reject",
-      "id": 3
-    },
-    {
-      "storyId": 9,
-      "userId": 1,
-      "feedback": "scscsc",
-      "timeFeedback": "2023-08-22T16:33:23.255Z",
-      "type": "normal",
-      "id": 4
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "scscs",
-      "timeFeedback": "2023-08-22T16:33:26.219Z",
-      "type": "reject",
-      "id": 5
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "scsc",
-      "timeFeedback": "2023-08-22T16:33:40.794Z",
-      "type": "normal",
-      "id": 6
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "cccccccccccccccccccccccccccccccccccccccccccccccc",
-      "timeFeedback": "2023-08-22T16:33:49.072Z",
-      "type": "normal",
-      "id": 7
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "scscs",
-      "timeFeedback": "2023-08-22T16:37:38.705Z",
-      "type": "normal",
-      "id": 8
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "scaaaaaaaaaaaaaaa caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacccccccccccccccccccc",
-      "timeFeedback": "2023-08-22T16:39:00.228Z",
-      "type": "normal",
-      "id": 9
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "scscscscaaaaaaaaaaaaaaa caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacccccccccccccccccccc",
-      "timeFeedback": "2023-08-22T16:39:37.797Z",
-      "type": "normal",
-      "id": 10
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "scaaaaaaaaaaaaaaa caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacccccccccccccccccccc",
-      "timeFeedback": "2023-08-22T16:39:39.587Z",
-      "type": "normal",
-      "id": 11
-    },
-    {
-      "storyId": 9,
-      "userId": 1,
-      "feedback": "scaaaaaaaaaaaaaaa caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacccccccccccccccccccc",
-      "timeFeedback": "2023-08-22T16:39:40.995Z",
-      "type": "normal",
-      "id": 12
-    },
-    {
-      "storyId": 9,
-      "userId": 2,
-      "feedback": "scaaaaaaaaaaaaaaa caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacccccccccccccccccccc",
-      "timeFeedback": "2023-08-22T16:39:42.334Z",
-      "type": "normal",
-      "id": 13
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "scscsc",
-      "timeFeedback": "2023-08-25T09:10:04.890Z",
-      "type": "normal",
-      "id": 14
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "sc",
-      "timeFeedback": "2023-08-25T10:39:16.349Z",
-      "type": "normal",
-      "id": 15
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "dvdvdvd",
-      "timeFeedback": "2023-08-25T10:39:33.262Z",
-      "type": "normal",
-      "id": 16
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "scsc",
-      "timeFeedback": "2023-08-25T10:57:35.427Z",
-      "type": "reject",
-      "id": 17
-    },
-    {
-      "storyId": 9,
-      "userId": 3,
-      "feedback": "ss",
-      "timeFeedback": "2023-08-25T10:59:03.212Z",
-      "type": "reject",
-      "id": 18
-    }
-  ]
+  "feedback": []
 }

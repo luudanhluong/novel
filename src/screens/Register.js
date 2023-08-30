@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'react-bootstrap-icons';
 import FormGroup from '../components/FormGroup'
 import '../styles/register.css'
-import getParentElement from '../components/getParentElement';
+import getParentElement from '../components/common/utilities/getParentElement';
 
 const initFormValue = {
     username: '',

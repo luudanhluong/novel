@@ -4,8 +4,7 @@ import { EyeFill, HouseFill } from "react-bootstrap-icons";
 import { useNavigate, Link, NavLink } from "react-router-dom";
 
 const Header = () => {
-  const navigate = useNavigate('')
-  const [loggedIn, setLoggedIn] = useState(false);
+  const navigate = useNavigate('');
   const [stories, setStories] = useState([])
   const [categories, setCategories] = useState([])
   const [SearchStory, setSearchStory] = useState("")
@@ -30,9 +29,9 @@ const Header = () => {
     setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    setLoggedIn(false);
+    localStorage.removeItem("user"); 
     setUser(null);
+    navigate("/login");
   };
   const handleOnclickTop = (e, id) => {
     navigate(`/detail/${id}`);
@@ -122,13 +121,7 @@ const Header = () => {
 
                         <NavDropdown className="fw-bold" title={<><Image className="rounded-5 border me-1" width={40} src={`${user.img === "" ? "https://cdn.landesa.org/wp-content/uploads/default-user-image.png" : user.img}`} alt={user.username} /> <span>{user.username}</span></>} id="basic-nav-dropdown">
                           <NavDropdown.Item as={Link} to="/author/addeditstory">Tạo truyện mới</NavDropdown.Item> 
-                          {user.role === 2 && (<NavDropdown.Item as={Link} to="/author/mystory">Truyện của tôi</NavDropdown.Item> )}
-                          <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                          <NavDropdown.Item href="#action/3.2">
-                            Another action
-                          </NavDropdown.Item>
-                          <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                          <NavDropdown.Divider />
+                          {user.role === 2 && (<NavDropdown.Item as={Link} to="/author/mystory">Truyện của tôi</NavDropdown.Item> )} 
                           <NavDropdown.Item onClick={handleLogout}>
                             Logout
                           </NavDropdown.Item>

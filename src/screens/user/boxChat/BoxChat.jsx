@@ -1,17 +1,18 @@
 import { useEffect, useMemo, useRef } from "react";
 import { Button, Col, OverlayTrigger, Row, Spinner, Tooltip } from "react-bootstrap"; 
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import CalTime from "../../../components/CalTime";
-import { deleteFeedback, fetchFeedbackSuccess, postFeedback } from "../../../components/common/data/dataBoxChat/dataSlice";
-import { fetchUserSuccess } from "../../../components/common/data/dataUser/dataSlice";
-import InputField from "../../../components/common/custom-fileds/inputField/inputFiled";
+import { useLocation, useParams } from "react-router-dom";
+import CalTime from "../../../components/common/utilities/calTime";
+import { deleteFeedback, postFeedback } from "../../../components/common/data/dataBoxChat/dataSlice"; 
+import InputField from "../../../components/common/custom-fileds/inputField/index";
 import userLogedIn from "../../../components/user/userLogedIn";
 import DefaultTemplate from "../../../templates/DefaultTemplate";
 import { setScrollValue, setValue } from "./boxChatSlice";
+import FetchData from "./FetchData";
 
 const Feedback = () => {
     const dispatch = useDispatch();
+    const location = useLocation();
     const inputValue = useRef();
     const { sid } = useParams();
     const value = useSelector(state => state.feedback.value);
@@ -24,20 +25,7 @@ const Feedback = () => {
         const action = setValue(event.target.value);
         dispatch(action); 
     };
-    useEffect(() => {
-        fetch("http://localhost:9999/feedback")
-            .then(res => res.json())
-            .then(data => dispatch(fetchFeedbackSuccess(data.filter(d => d.storyId === parseInt(sid)))));
-    }, [value, sid, dispatch]);
-    useEffect(() => {
-        fetch("http://localhost:9999/Users")
-            .then(res => res.json())
-            .then(data => dispatch(fetchUserSuccess(data.filter(d => {
-                const id = new Set(listFeedback.map(fb => fb.userId));
-                const newList = [...id];
-                return newList.includes(d.id)
-            }))));
-    }, [listFeedback, dispatch]);
+    FetchData(listFeedback, sid, value)
     const handleSubmit = () => {
         const regex = /^[\s]*$/;
         if (regex.test(value)) return;
@@ -62,7 +50,7 @@ const Feedback = () => {
     }
     useEffect(() => {
         dispatch(setScrollValue(20));
-    }, [window.location, dispatch]);
+    }, [location, dispatch]);
     const ListFeedbackCopy = [...listFeedback];
     ListFeedbackCopy.sort((a, b) => new Date(b["timeFeedback"]) - new Date(a["timeFeedback"]));
     const newListFeedback = ListFeedbackCopy.map(fb => ({ ...fb, userImg: "", username: "" }));
@@ -72,7 +60,7 @@ const Feedback = () => {
         if (targetDivRef.current) {
             targetDivRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
         }
-    }, [targetDivRef.current]);
+    }, [targetDivRef]);
     useMemo(() => {
         listUser.forEach(u => {
             newListFeedback_20.forEach(fb => {
@@ -176,6 +164,7 @@ const Feedback = () => {
                         <Col xs={7}>
                             <Row className="d-flex justify-content-center mt-4">
                                 <Col xs={9}>
+                                <InputField handleInputChange={handleInputChange} placeholder="Aa" value={value} ref={inputValue} />
                                     <InputField handleInputChange={handleInputChange} placeholder="Aa" value={value} ref={inputValue} />
                                 </Col>
                                 <Col xs={1}>

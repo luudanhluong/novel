@@ -128,12 +128,8 @@ html {
   color: rgb(87, 86, 86);
 }
 
-.Content_header_List_item {
+.content_header_list_item {
   border-bottom: 1px dashed #afb3b7;
-}
-
-.last_item {
-  border-bottom: none
 }
 
 .color_grey {
@@ -183,6 +179,10 @@ html {
   cursor: pointer;
 }
 
+.form-check>input {
+  cursor: pointer;
+}
+
 .over_content {
   overflow: hidden;
   position: relative;
@@ -217,13 +217,35 @@ div.dropdown>a {
   height: 400px;
   max-height: 400px;
   overflow-x: hidden;
-  overflow-y: auto; 
-  -ms-overflow-style: none; /* khai báo sử dụng Internet Explorer, Edge */
-    scrollbar-width: none; /* sử dụng Firefox */
-}  
-.box-chat::-webkit-scrollbar {
-  display: none; /* cho Chrome, Safari, and Opera */
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  /* khai báo sử dụng Internet Explorer, Edge */
+  scrollbar-width: none;
+  /* sử dụng Firefox */
 }
+
+.box-chat::-webkit-scrollbar {
+  display: none;
+  /* cho Chrome, Safari, and Opera */
+}
+
 .img_32 {
   width: 32px;
+}
+
+.new-content {
+
+  height: 450px;
+  max-height: 450px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -ms-overflow-style: none;
+  /* khai báo sử dụng Internet Explorer, Edge */
+  scrollbar-width: none;
+  /* sử dụng Firefox */
+}
+
+.new-content::-webkit-scrollbar {
+  display: none;
+  /* cho Chrome, Safari, and Opera */
 }
